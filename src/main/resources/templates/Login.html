@@ -5,23 +5,23 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
-   
+
     <head>
         <title>Login</title>
-            <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <style>
         body{
-                margin:100px;
-                padding: 50px;
-                text-align: center;
-            }
-            td{
-                padding: 20px;
-                align-items: center;
-                background-color: #F8F8FF;
+            margin:100px;
+            padding: 50px;
+            text-align: center;
+        }
+        td{
+            padding: 20px;
+            align-items: center;
+            background-color: #F8F8FF;
     </style>
     <body>
         <div>
@@ -33,21 +33,21 @@ and open the template in the editor.
         <!--form inputan-->
         <div>
             <center>
-          <from action="" method="POST">
-            <table>
-                <tr>       
-                    <td><input type="text" class="form-control" name="username" placeholder="Username or email"></td>
-                </tr>
-                 <tr>
-                   
-                    <td><input type="password" class="form-control" name="password" placeholder="Password"></td>
-                </tr>
-                <tr>
-                    <td colspan="2" style="text-align: center"><input class="btn btn-primary" type="submit" value="Submit"></td>
-                </tr>
-            </table>
-          </from>
+                <from th:action="@{/login}" method="POST">
+                    <table>
+                        <tr>       
+                            <td><input type="text" class="form-control" name="username" placeholder="Username or email"></td>
+                        </tr>
+                        <tr>
+
+                            <td><input type="password" class="form-control" name="password" placeholder="Password"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: center"><input class="btn btn-primary" type="submit" value="Submit"></td>
+                            </tr>
+                        </table>
+                    </from>
                 </center>
-        </div>
-    </body>
-</html>
+            </div>
+        </body>
+    </html>
