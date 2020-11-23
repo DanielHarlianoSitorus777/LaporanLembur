@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Overtime Form</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <style>
+        body{
+                
+                padding: 50px;
+                text-align: center;
+            }
+            td{
+                padding: 10px;
+                align-items: center;
+            }
+                
+    </style>
+    <body>
+    <center>
+        <div class="a"><h3><b>Overtime Form</b></h3></div><br>
+    </center>
+
+    <div class="a">
+            <center>
+                <from action="" method="POST">
+                    <table>
+                        <tr>
+                            <td>Tanggal</td>
+                            <td>Start Time</td>
+                            <td>End Time</td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" class="form-control" name="Tanggal"></td>
+                            <td><input type="text" class="form-control" name="Start"></td>
+                            <td><input type="text" class="form-control" name="End"></td>
+                        </tr>
+                        <tr>
+                                <td><label for="alamat">Deskripsi</label></td>
+                        </tr>
+                        <tr>
+                                <td><textarea style="resize:none;width:300px;height:110px;" class="form-control" name="deskripsi"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: left"><input class="btn btn-success" type="submit" value="Submit"></td>
+                        </tr>
+                    </table>
+                 </from>
+            </center>
+        </div>
+    </body>
+</html>
