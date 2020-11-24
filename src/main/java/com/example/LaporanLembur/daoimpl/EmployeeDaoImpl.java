@@ -46,8 +46,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public List<Department> getReportbyDepartment(int deptId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Overtime> getReportbyDepartment(int deptId) {
+        return overtimeRepository.findByEmployee(deptId);
     }
 
     @Override
