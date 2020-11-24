@@ -1,61 +1,73 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
-    <head>
-        <title>Overtime Detail</title>
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <style>
-        body{
-                
-                padding: 50px;
-                text-align: center;
-            }
-            td{
-                padding: 5px;
-                align-items: center;
-                
-            }
-                
-    </style>
-    <body>
-    <center>
-        <div class="a"><h3><b>Overtime Detail</b></h3></div><br>
-    </center>
-
-    <div class="a">
-            <center>
-                <from action="" method="POST">
-                    <table>
-                        <tr>
-                            <td><h6>19 November 2020</h6></td>
-                            <td style="text-align: right"><h6>NIK - 12345 </h6></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td ><h6>18.00 - 21.00</h6></td>
-                            <td style="text-align: right"><h6>Ardian Pramudya Alphita</h6></td>
-                            
-                        </tr>
-                        <tr>
-                            <td><label for="deskripsi">Deskripsi</label></td>
-                                <td style="text-align: right"><h6>Divisi IT</h6></td>
-                        </tr>
-                        <tr>
-                                <td><textarea style="resize:none;width:500px;height:150px;" class="form-control" name="deskripsi" id="deskripsi"></textarea></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" style="text-align: left"><input class="btn btn-success" type="submit" value="Submit"></td>
-                        </tr>
-                    </table>
-                 </from>
-            </center>
-        </div>
-    </body>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE-edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+	<style type="text/css">
+		html, body {
+			background-color: #fff;
+			font-family: "Source Sans Pro", sans-serif;
+			overflow-x: hidden !important;
+			margin: 0px !important;
+			padding: 0px !important;
+		}
+		* {
+			text-decoration: none !important;
+		}
+		.box{
+			width: 600px;
+			height: 370px;
+			box-shadow: 0 10px 10px rgba(0,0,0,0.10);
+			padding: 50px;
+			margin: 10px;
+			position: absolute;
+			top:0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			margin: auto;
+		}
+		h1{
+			text-align: center;
+		}
+		textarea {
+			resize: none;
+			width: 595px;
+		}
+	</style>
+	<title>Overtime Form</title>
+</head>
+<body>
+	<div class="box">
+		<h1>Overtime Detail</h1>
+		<p>
+			<span><b>Ambil Tanggal</b></span>
+			&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+			&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+			&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+			&emsp;&emsp;&nbsp;&nbsp;
+			<span><b>Ambil NIK</b></span>
+			<br>
+			<span>Ambil Jam</span>
+			&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+			&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+			&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+			&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<span><b>Ambil Nama</b></span>
+			<br>
+			&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+			&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+			&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+			&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<span>Ambil Divisi</span>
+		</p>
+		<label for="deskripsi">Deskripsi</label><br>
+		<textarea id="deskripsi" rows="10" cols="30">
+		</textarea><br><br>
+	</div>
+</body>
 </html>
