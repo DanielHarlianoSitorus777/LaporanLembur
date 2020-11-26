@@ -6,12 +6,8 @@
 package com.example.LaporanLembur.daoimpl;
 
 import com.example.LaporanLembur.dao.EmployeeDao;
-import com.example.LaporanLembur.entities.Department;
-import com.example.LaporanLembur.entities.Overtime;
-import com.example.LaporanLembur.entities.Title;
-import com.example.LaporanLembur.repositories.DepartmentRepository;
-import com.example.LaporanLembur.repositories.OvertimeRepository;
-import com.example.LaporanLembur.repositories.TitleRepository;
+import com.example.LaporanLembur.entities.*;
+import com.example.LaporanLembur.repositories.*;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -61,8 +57,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public void login() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void login(Login login) {
+        
     }
     
 }
