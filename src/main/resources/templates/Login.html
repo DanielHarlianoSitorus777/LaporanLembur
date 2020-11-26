@@ -14,22 +14,51 @@ and open the template in the editor.
     </head>
     <style>
         body{
-            margin:100px;
-            padding: 50px;
-            text-align: center;
+            
+                        text-align: center;
+                        width: 600px;
+			height: 400px;
+			box-shadow: 0 10px 10px rgba(0,0,0,0.30);
+                        border: 0px solid background;
+			padding: 50px;
+			margin: 10px;
+			position: absolute;
+			top:0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			margin: auto;
+                        background-color: #b0d9ff;
+                        
         }
         td{
             padding: 20px;
             align-items: center;
             background-color: #F8F8FF;
+        }
+        img{
+            border: 2px;
+            height: 80px;
+            width: 80px;
+            border-radius: 70px;
+            margin-left: 210px;
+            position: absolute;
+            margin-top: -90px;
+   
+            
+        }
+        
     </style>
     <body>
+    <center> 
         <div>
+            <img src="../images/icon.png">
             <h1>Sign In</h1>
             <h6>New user? 
                 <a href="Create.html">Create an account</a>
             </h6>
         </div>
+        </center>
         <!--form inputan-->
         <div>
             <center>
@@ -43,7 +72,7 @@ and open the template in the editor.
                             <td><input type="password" class="form-control" name="password" placeholder="Password"></td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="text-align: center"><input class="btn btn-primary" type="submit" value="Submit"></td>
+                            <td colspan="2" style="text-align: center"><input class="btn btn-primary" type="submit" value="Login"></td>
                             </tr>
                         </table>
                     </from>
