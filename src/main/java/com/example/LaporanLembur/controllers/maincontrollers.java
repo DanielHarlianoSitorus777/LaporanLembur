@@ -5,9 +5,12 @@
  */
 package com.example.LaporanLembur.controllers;
 
+import com.example.LaporanLembur.dao.EmployeeDao;
+import com.example.LaporanLembur.entities.Employee;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  *
@@ -16,8 +19,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class maincontrollers {
     
+    EmployeeDao employeeDao;
+    
     @GetMapping("")
     public String index(Model model) {
+        model.addAttribute("employee", new Employee());
         return "login";
+    }
+    
+    @PostMapping("/login")
+    public String login() {
+
+        return "kebijakan";
     }
 }

@@ -59,5 +59,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public Overtime createReport(Overtime overtime) {
         return overtimeRepository.save(overtime);
     }
+
+    @Override
+    public void login() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

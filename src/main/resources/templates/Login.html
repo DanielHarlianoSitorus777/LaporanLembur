@@ -22,31 +22,31 @@ and open the template in the editor.
             padding: 20px;
             align-items: center;
             background-color: #F8F8FF;
-    </style>
-    <body>
-        <div>
-            <h1>Sign In</h1>
-            <h6>New user? 
-                <a href="Create.html">Create an account</a>
-            </h6>
-        </div>
-        <!--form inputan-->
-        <div>
-            <center>
-                <from th:action="@{/login}" method="POST">
-                    <table>
-                        <tr>       
-                            <td><input type="text" class="form-control" name="username" placeholder="Username or email"></td>
-                        </tr>
-                        <tr>
+        </style>
+        <body>
+            <div>
+                <h1>Sign In</h1>
+                <h6>New user? 
+                    <a href="Create.html">Create an account</a>
+                </h6>
+            </div>
+            <!--form inputan-->
+            <div>
+                <center>
+                    <form th:action="@{/login}" method="POST">
+                        <table>
+                            <tr>       
+                                <td><input type="text" class="form-control" name="username" placeholder="Username or email"></td>
+                            </tr>
+                            <tr>
 
-                            <td><input type="password" class="form-control" name="password" placeholder="Password"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" style="text-align: center"><input class="btn btn-primary" type="submit" value="Submit"></td>
+                                <td><input type="password" class="form-control" name="password" placeholder="Password"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align: center"><input class="btn btn-primary" type="submit" value="Submit"></td>
                             </tr>
                         </table>
-                    </from>
+                    </form>
                 </center>
             </div>
         </body>
