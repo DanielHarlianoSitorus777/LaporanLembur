@@ -7,11 +7,14 @@ package com.example.LaporanLembur.repositories;
 
 import com.example.LaporanLembur.entities.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 
 /**
  *
  * @author Ardian
  */
 public interface EmployeeRepository extends JpaRepository<Employee, Integer>{
+    
+    Employee findByEmail(@Param("email") String email);
     
 }

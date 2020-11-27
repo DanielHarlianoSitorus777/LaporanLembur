@@ -55,9 +55,20 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public Overtime createReport(Overtime overtime) {
         return overtimeRepository.save(overtime);
     }
+    
+    @Autowired
+    EmployeeRepository employeeRepository;
 
     @Override
-    public void login(Login login) {
+    public boolean login(Login login) {
+        String email = login.getEmail();
+        String password = login.getPassword();
+        
+        if (email == employeeRepository.findByEmail(email).getEmail() && password == employeeRepository.findByEmail(email).getPassword()) {
+            return true;
+        } else {
+            return false;
+        }
         
     }
     
