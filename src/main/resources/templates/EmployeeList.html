@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE-edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Karyawan</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/css_table.css" />
+    <link rel="stylesheet" type="text/css" href="css_table.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap"
       rel="stylesheet"
@@ -24,7 +24,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">
-        <img src="img/calendar.png" width="30" height="30" />
+        <img src="images/calendar.png" width="30" height="30" />
         <b>KapitaApp</b>
       </a>
       <button
@@ -75,7 +75,7 @@
 			</tr>
 			<tr>
 				<tr th:each="as : ${employee}">
-					<td></td>
+					<td th:text="${as.id}"></td>
 					<td th:text="${as.nik}"></td>
 					<td th:text="${as.nama}"></td>
 					<td th:text="${as.role}"></td>
@@ -84,8 +84,8 @@
 					<td th:text="${as.email}"></td>
 					<td th:text="${as.alamat}"></td>
 					<td class="employee">
-						<img src="static/img/edit.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<img src="static/img/delete.png">
+						<img src="images/edit.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<img src="images/delete.png">
 					</td>
 				</tr>
 			</tr>

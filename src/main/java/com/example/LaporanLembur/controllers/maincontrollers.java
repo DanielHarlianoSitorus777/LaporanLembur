@@ -24,7 +24,7 @@ public class maincontrollers {
     @GetMapping("")
     public String index(Model model) {
         model.addAttribute("employee", new Login());
-        return "login";
+        return "Login";
     }
     
     @PostMapping("/login")
