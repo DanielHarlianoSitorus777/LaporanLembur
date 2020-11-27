@@ -12,11 +12,13 @@ import com.example.LaporanLembur.repositories.EmployeeRepository;
 import com.example.LaporanLembur.repositories.PolicyRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Ardian
  */
+@Service
 public class AdminDaoImpl implements AdminDao {
     
     @Autowired

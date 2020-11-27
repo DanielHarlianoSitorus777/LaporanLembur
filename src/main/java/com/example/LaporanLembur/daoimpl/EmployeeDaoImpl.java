@@ -8,15 +8,18 @@ package com.example.LaporanLembur.daoimpl;
 import com.example.LaporanLembur.dao.EmployeeDao;
 import com.example.LaporanLembur.entities.*;
 import com.example.LaporanLembur.repositories.*;
+import com.example.LaporanLembur.services.EmployeeService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Ardian
  */
+@Service
 public class EmployeeDaoImpl implements EmployeeDao {
-    
+
     @Autowired
     DepartmentRepository departmentRepository;
 
@@ -24,15 +27,15 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public Department getDepartment(int id) {
         return departmentRepository.findById(id).get();
     }
-    
+
     @Autowired
-    TitleRepository titleRepository; 
+    TitleRepository titleRepository;
 
     @Override
     public Title getTitle(int id) {
         return titleRepository.findById(id).get();
     }
-    
+
     @Autowired
     OvertimeRepository overtimeRepository;
 
@@ -55,21 +58,33 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public Overtime createReport(Overtime overtime) {
         return overtimeRepository.save(overtime);
     }
+
+    @Autowired
+    EmployeeService employeeService;
     
     @Autowired
     EmployeeRepository employeeRepository;
 
     @Override
-    public boolean login(Login login) {
-        String email = login.getEmail();
-        String password = login.getPassword();
-        
-        if (email == employeeRepository.findByEmail(email).getEmail() && password == employeeRepository.findByEmail(email).getPassword()) {
-            return true;
-        } else {
-            return false;
+    public void login(Login login) {
+
+        try {
+            String email = login.getEmail();
+            String password = login.getPassword();
+
+            System.out.println("email : " + email);
+            System.out.println("pass : " + password);
+            System.out.println("emailrepo : " + employeeService.findByEmail(email).getEmail());
+
+            if (email.equals(employeeService.findByEmail(email).getEmail()) || password.equals(employeeService.findByEmail(email).getPassword())) {
+                login.setEmployee(employeeService.findByEmail(email));
+            } else {
+                System.out.println("No employee");
+            }
+        } catch (Exception e) {
+            System.out.println("Exception : " + e);
         }
-        
+
     }
-    
+
 }

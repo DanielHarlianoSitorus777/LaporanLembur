@@ -51,7 +51,7 @@ and open the template in the editor.
     </style>
     <body>
         <div>
-            <img th:src="@{/images/icon.png}"/>
+            <!--<img th:src="@{/images/icon.png}"/>-->
             <h1>Sign In</h1>
             <h6>New user? 
                 <a href="Create.html">Create an account</a>
@@ -60,20 +60,20 @@ and open the template in the editor.
         <!--form inputan-->
         <div>
             <center>
-                <from th:action="@{/login}" method="POST">
+                <form th:action="@{/execute_login}" method="post">
                     <table>
                         <tr>       
-                            <td><input type="text" class="form-control" name="username" placeholder="Username or email"></td>
+                            <td><input type="text" class="form-control" id="username" name="username" placeholder="Username or email"></td>
                         </tr>
                         <tr>
 
-                            <td><input type="password" class="form-control" name="password" placeholder="Password"></td>
+                            <td><input type="password" class="form-control" id="password" name="password" placeholder="Password"></td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="text-align: center"><input class="btn btn-primary" type="submit" value="Login"></td>
+                            <td colspan="2" style="text-align: center"><input class="btn btn-primary" type="submit" name="Login" value="Login"></td>
                         </tr>
                     </table>
-                </from>
+                </form>
             </center>
         </div>
     </body>

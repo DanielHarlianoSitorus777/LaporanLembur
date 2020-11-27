@@ -39,7 +39,7 @@ and open the template in the editor.
    <body style="background-color:#b0d9ff">
        <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">
-        <img src="img/calendar.png" width="30" height="30" />
+        <img th:src="@{/images/calendar.png}" width="30" height="30" />
         <b>KapitaApp</b>
       </a>
       <button
@@ -94,12 +94,12 @@ and open the template in the editor.
                             <td><input type="text" class="form-control" name="Nama"></td>
                         </tr>
                         <tr>
-                            <td>Role</td>
-                            <td><input type="text" class="form-control" name="Role"></td>
+                            <td>Title</td>
+                            <td><input type="text" class="form-control" name="Title"></td>
                         </tr>
                         <tr>
-                            <td>Divisi</td>
-                            <td><input type="text" class="form-control" name="Divisi"></td>
+                            <td>Department</td>
+                            <td><input type="text" class="form-control" name="Department"></td>
                         </tr>
                         <tr>
                             <td>Telepon</td>

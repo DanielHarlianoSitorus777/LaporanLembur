@@ -5,15 +5,10 @@
  */
 package com.example.LaporanLembur.entities;
 
-import lombok.Data;
-
 /**
  *
  * @author Ardian
  */
-@Data
-public class Login {
-    private String email;
-    private String password;
-    private Employee employee;
+public class TempRole {
+    public static String role;
 }

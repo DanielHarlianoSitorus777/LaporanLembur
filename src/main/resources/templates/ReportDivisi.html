@@ -31,7 +31,7 @@ and open the template in the editor.
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">
-        <img src="img/calendar.png" width="30" height="30" />
+        <img th:src="@{/images/calendar.png}" width="30" height="30" />
         <b>KapitaApp</b>
       </a>
       <button
@@ -48,18 +48,18 @@ and open the template in the editor.
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#"
+            <a class="nav-link" th:href="@{/home}"
               >Home <span class="sr-only">(current)</span></a
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Riwayat</a>
+            <a class="nav-link" th:href="@{/personal}">Riwayat</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Divisi</a>
+            <a class="nav-link" th:href="@{/department}">Divisi</a>
           </li>
 		</ul>
-		<a href="#" class="text-danger">Logout</a>
+          <a th:href="@{/logout}" class="text-danger">Logout</a>
       </div>
     </nav>
     <!-- Navbar -->
@@ -85,8 +85,8 @@ and open the template in the editor.
           <td th:text="${as.note}"></td>
           <td th:text="${as.jam}"></td>
           <td>
-            <img src="statc/img/cross.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <img src="static/img/check.png" />
+            <img th:src="@{/images/cross.png}" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <img th:src="@{/images/check.png}" />
           </td>
         </tr>
       </table>

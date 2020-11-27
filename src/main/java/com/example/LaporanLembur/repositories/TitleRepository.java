@@ -5,7 +5,7 @@
  */
 package com.example.LaporanLembur.repositories;
 
-import com.example.LaporanLembur.entities.Title;
+import com.example.LaporanLembur.entities.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

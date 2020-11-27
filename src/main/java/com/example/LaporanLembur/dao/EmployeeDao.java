@@ -19,5 +19,5 @@ public interface EmployeeDao {
     public List<Overtime> getReportbyDepartment(int deptId);
     public Overtime approveReport(Overtime approval);
     public Overtime createReport(Overtime overtime);
-    public boolean login(Login login);
+    public void login(Login login);
 }
