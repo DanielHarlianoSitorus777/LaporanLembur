@@ -23,12 +23,15 @@ and open the template in the editor.
       integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">
-        <img src="img/calendar.png" width="30" height="30" />
+        <img src="images/calendar.png" width="30" height="30" />
         <b>KapitaApp</b>
       </a>
       <button
@@ -52,9 +55,6 @@ and open the template in the editor.
           <li class="nav-item">
             <a class="nav-link" href="#">Riwayat</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Divisi</a>
-          </li>
 		</ul>
 		<a href="#" class="text-danger">Logout</a>
       </div>
@@ -63,7 +63,7 @@ and open the template in the editor.
     <br /><br />
 	<div class="table" border="1">
 		<h1>Report History</h1><br>
-		<table class="actualTable">
+		<table class="actualTable" id="tb">
 			<tr>
 				<th>No</th>
 				<th>Status Persetujuan</th>
@@ -78,11 +78,17 @@ and open the template in the editor.
 					<td th:text="${as.tanggal}"></td>
 					<td th:text="${as.manager_note}"></td>
 					<td>
-						<img src="img/info.png">
+                                            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="OvertimeDetail"><i class="fa fa-info-circle" aria-hidden="true"></i></button>
 					</td>
 				</tr>
 			</tr>
 		</table>
 	</div>
+    <!--JS-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="js/custom.js"></script>
 </body>
 </html>

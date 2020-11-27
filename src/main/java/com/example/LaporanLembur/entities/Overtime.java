@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -38,6 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Overtime.findByStartTime", query = "SELECT o FROM Overtime o WHERE o.startTime = :startTime")
     , @NamedQuery(name = "Overtime.findByEndTime", query = "SELECT o FROM Overtime o WHERE o.endTime = :endTime")
     , @NamedQuery(name = "Overtime.findByStatus", query = "SELECT o FROM Overtime o WHERE o.status = :status")})
+@NamedNativeQuery(name = "Overtime.findByEmployee", query = "SELECT employee.NIK, employee.Name AS, overtime.`Submit Date` AS , overtime.Description, overtime.`Status`, TIMEDIFF(overtime.`End Time`,overtime.`Start Time`) AS `Hours` FROM employee, overtime, department WHERE employee.Id = overtime.Employee AND employee.Department = department.Id AND employee.Department = :deptId")
 public class Overtime implements Serializable {
 
     private static final long serialVersionUID = 1L;

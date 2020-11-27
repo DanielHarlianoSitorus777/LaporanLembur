@@ -5,9 +5,7 @@
  */
 package com.example.LaporanLembur.dao;
 
-import com.example.LaporanLembur.entities.Department;
-import com.example.LaporanLembur.entities.Overtime;
-import com.example.LaporanLembur.entities.Title;
+import com.example.LaporanLembur.entities.*;
 import java.util.List;
 
 /**
@@ -18,7 +16,8 @@ public interface EmployeeDao {
     public Department getDepartment(int id);
     public Title getTitle(int id);
     public Overtime getReport(int id);
-    public List<Department> getReportbyDepartment(int deptId);
+    public List<Overtime> getReportbyDepartment(int deptId);
     public Overtime approveReport(Overtime approval);
     public Overtime createReport(Overtime overtime);
+    public void login(Login login);
 }
