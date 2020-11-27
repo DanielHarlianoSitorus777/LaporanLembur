@@ -54,11 +54,11 @@ public class maincontrollers {
         
         if (null != TempRole.role) switch (TempRole.role) {
             case "Manager":
-                return view = "reportdivisi";
+                return view = "dashboardmanager";
             case "Karyawan":
-                return view = "reportpribadi";
+                return view = "dashboardemployee";
             case "Admin":
-                return view = "employeelist";
+                return view = "dashboardadmin";
             default:
                 break;
         }
@@ -71,11 +71,11 @@ public class maincontrollers {
         
         if (null != TempRole.role) switch (TempRole.role) {
             case "Manager":
-                return view = "reportdivisi";
+                return view = "dashboardmanager";
             case "Karyawan":
-                return view = "reportpribadi";
+                return view = "dashboardemployee";
             case "Admin":
-                return view = "employeelist";
+                return view = "dashboardadmin";
             default:
                 break;
         }
