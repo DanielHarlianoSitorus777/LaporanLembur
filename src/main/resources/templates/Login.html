@@ -41,7 +41,7 @@ and open the template in the editor.
             height: 80px;
             width: 80px;
             border-radius: 70px;
-            margin-left: 210px;
+            margin-left: -40px;
             position: absolute;
             margin-top: -90px;
    
@@ -52,7 +52,7 @@ and open the template in the editor.
     <body>
     <center> 
         <div>
-            <img src="../images/icon.png">
+            <img th:src="@{/images/icon.png}"/>
             <h1>Sign In</h1>
             <h6>New user? 
                 <a href="Create.html">Create an account</a>

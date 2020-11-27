@@ -12,50 +12,87 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <style>
-        body{
-                
-                padding: 50px;
-                text-align: center;
+      
+
+            .ml-30{
+                margin-left:30px;
+            }
+            .br-15{
+                border-radius: 15px;
             }
             td{
-                padding: 10px;
-                align-items: center;
-            }
-                
+                 padding: 10px;
+            }            
     </style>
-    <body>
+    <!-- Navbar -->
+    <body style="background-color:#b0d9ff">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">
+        <img src="img/calendar.png" width="30" height="30" />
+        <b>KapitaApp</b>
+      </a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#"
+              >Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Riwayat</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Divisi</a>
+          </li>
+		</ul>
+		<a href="#" class="text-danger">Logout</a>
+      </div>
+    </nav>
+    <!-- Navbar -->
+    
     <center>
-        <div class="a"><h3><b>Kebijakan Lembur</b></h3></div><br>
-    </center>
-
-    <div class="a">
-            <center>
-                <from action="" method="POST">
-                    <table>
-                        <tr>
+        <div class="row">
+            <div class="container pt-4 mt-5">
+                <div class="col-7 shadow pt-3 pb-5 br-15 mt-4 mb-5 pr-5 p-5" style="background-color: white">
+                    <div>
+                        <div style='text-align: center'>
+                            <font class='h2'> <strong> Kebijakan Lembur </strong> </font>
+                        </div>
+                    </div>
+                    <hr>
+                    <form action="" method="POST">
+                        <div class="pr-4">
+                            <table>
+                                 <tr>
                             <td>Jam Lembur Maksimal</td>
-                        </tr>
-                        <tr>
-                           <td><input type="text" class="form-control" name="Lembur"></td>
-                        </tr>
-                        <tr>
-                            <td>Aturan Lain</td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" class="form-control" name="Aturan"></td>
+                            <td><input type="text" class="form-control" name="Jam Lembur Maksimal"></td>
                         </tr>
                         <tr>
                             <td>Aturan Lain</td>
+                            <td><input type="text" class="form-control" name="Aturan Lain"></td>
                         </tr>
                         <tr>
-                            <td><input type="text" class="form-control" name="Aturan"></td>
+                            <td>Aturan Lain</td>
+                            <td><input type="text" class="form-control" name="Aturan Lain"></td>
                         </tr>
-                        <tr>
-                            <td colspan="2" style="text-align: left"><input class="btn btn-primary" type="submit" value="Update"&nbsp;&nbsp;&nbsp;></td>
-                        </tr>
-                    </table>
-                 </from>
-            </center>
+                            </table>
+                            <input type="submit" name="save" value="Update" class="btn btn-primary" style="margin-left:62%; ">
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
+    </center>
     </body>
 </html>
