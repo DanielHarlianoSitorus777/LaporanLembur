@@ -28,8 +28,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class maincontrollers {
     
-    EmployeeDao employeeDao = new EmployeeDaoImpl();
-    
     @Autowired
     EmployeeRepository employeeRepository;
     
@@ -84,8 +82,12 @@ public class maincontrollers {
         return view;
     }
     
+    @Autowired
+    EmployeeDaoImpl employeeDaoImpl;
+    
     @GetMapping("/personal")
-    public String personalReport() {
+    public String personalReport(Model model) {
+//        model.addAttribute("history", employeeDaoImpl.getReportbyDepartment(employeeRepository.findById(5).get()));
         return "reportpribadi";
     }
     

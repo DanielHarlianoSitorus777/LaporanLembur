@@ -5,6 +5,7 @@
  */
 package com.example.LaporanLembur.repositories;
 
+import com.example.LaporanLembur.entities.Employee;
 import com.example.LaporanLembur.entities.Overtime;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,6 +17,6 @@ import org.springframework.data.repository.query.Param;
  */
 public interface OvertimeRepository extends JpaRepository<Overtime, Integer>{
     
-    List<Overtime> findByEmployee(@Param("id") int deptId);
+    List<Overtime> findByEmployee(@Param("employee") Employee employee);
     
 }

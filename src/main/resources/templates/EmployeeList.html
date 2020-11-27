@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE-edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Karyawan</title>
-        <link rel="stylesheet" type="text/css" href="/static/css/css_table.css" />
+        <link rel="stylesheet" type="text/css" href="css_table.css" />
         <link
             href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap"
             rel="stylesheet"
@@ -59,38 +59,37 @@
         <div class="table" border="1">
             <h1>Report History</h1>
             <div class="addBtn">
-                <button>Add</button><br><br><br>
+                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="OvertimeForm">Add</button>
             </div>
+            <br>
             <table class="actualTable" id="tb">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>NIK</th>
-                        <th>Nama</th>
-                        <!--<th>Title</th>-->
-                        <th>Department</th>
-                        <th>Telepon</th>
-                        <th>Email</th>
-                        <th>Alamat</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="as : ${employee}">
-                        <td th:text="${as.id}"></td>
-                        <td th:text="${as.nik}"></td>
-                        <td th:text="${as.name}"></td>
-                        <!--<td th:text="${as.title}"></td>-->
-                        <td th:text="${as.department.department}"></td>
-                        <td th:text="${as.telephone}"></td>
-                        <td th:text="${as.email}"></td>
-                        <td th:text="${as.address}"></td>
-                        <td class="employee">
-                            <img th:src="@{/images/edit.png}" height="24">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <img th:src="@{/images/delete.png}" height="24">
-                        </td>
-                    </tr>
-                </tbody>
+                <tr>
+                    <th>No</th>
+                    <th>NIK</th>
+                    <th>Nama</th>
+                    <!--<th>Role</th>-->
+                    <th>Divisi</th>
+                    <th>Telepon</th>
+                    <th>Email</th>
+                    <th>Alamat</th>
+                    <th></th>
+                </tr>
+                <tr>
+                <tr th:each="as : ${employee}">
+                    <td th:text="${as.id}"></td>
+                    <td th:text="${as.nik}"></td>
+                    <td th:text="${as.name}"></td>
+                    <!--<td th:text="${as.title}"></td>-->
+                    <td th:text="${as.department.department}"></td>
+                    <td th:text="${as.telephone}"></td>
+                    <td th:text="${as.email}"></td>
+                    <td th:text="${as.address}"></td>
+                    <td class="employee">
+                        <img th:src="@{/images/edit.png}" height="24">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <img th:src="@{/images/delete.png}" height="24">
+                    </td>
+                </tr>
+                </tr>
             </table>
         </div>
         <!--JS-->
@@ -98,6 +97,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script th:src="@{/js/custom.js}"></script>
+        <script src="js/custom.js"></script>
     </body>
 </html>
