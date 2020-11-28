@@ -6,7 +6,6 @@
 package com.example.LaporanLembur.entities;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,8 +16,6 @@ import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -46,8 +43,7 @@ public class Policy implements Serializable {
     private String description;
     @Basic(optional = false)
     @Column(name = "Time")
-    @Temporal(TemporalType.TIME)
-    private Date time;
+    private int time;
 
     public Policy() {
     }
@@ -56,7 +52,7 @@ public class Policy implements Serializable {
         this.id = id;
     }
 
-    public Policy(Integer id, String description, Date time) {
+    public Policy(Integer id, String description, int time) {
         this.id = id;
         this.description = description;
         this.time = time;
@@ -78,11 +74,11 @@ public class Policy implements Serializable {
         this.description = description;
     }
 
-    public Date getTime() {
+    public int getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(int time) {
         this.time = time;
     }
 

@@ -38,6 +38,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Overtime.findBySubmitDate", query = "SELECT o FROM Overtime o WHERE o.submitDate = :submitDate")
     , @NamedQuery(name = "Overtime.findByStartTime", query = "SELECT o FROM Overtime o WHERE o.startTime = :startTime")
     , @NamedQuery(name = "Overtime.findByEndTime", query = "SELECT o FROM Overtime o WHERE o.endTime = :endTime")
+    , @NamedQuery(name = "Overtime.findByDescription", query = "SELECT o FROM Overtime o WHERE o.description = :description")
+    , @NamedQuery(name = "Overtime.findByManagerNotes", query = "SELECT o FROM Overtime o WHERE o.managerNotes = :managerNotes")
     , @NamedQuery(name = "Overtime.findByStatus", query = "SELECT o FROM Overtime o WHERE o.status = :status")})
 @NamedNativeQuery(name = "Overtime.findByEmployee", query = "SELECT employee.NIK, employee.Name AS, overtime.`Submit Date` AS , overtime.Description, overtime.`Status`, TIMEDIFF(overtime.`End Time`,overtime.`Start Time`) AS `Hours` FROM employee, overtime, department WHERE employee.Id = overtime.Employee AND employee.Department = department.Id AND employee.Department = :employee")
 public class Overtime implements Serializable {
@@ -49,23 +51,22 @@ public class Overtime implements Serializable {
     @Column(name = "Id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "Submit Date")
+    @Column(name = "Submit_Date")
     @Temporal(TemporalType.DATE)
     private Date submitDate;
     @Basic(optional = false)
-    @Column(name = "Start Time")
+    @Column(name = "Start_Time")
     @Temporal(TemporalType.TIME)
     private Date startTime;
     @Basic(optional = false)
-    @Column(name = "End Time")
+    @Column(name = "End_Time")
     @Temporal(TemporalType.TIME)
     private Date endTime;
     @Basic(optional = false)
     @Lob
     @Column(name = "Description")
     private String description;
-    @Lob
-    @Column(name = "Manager Notes")
+    @Column(name = "Manager_Notes")
     private String managerNotes;
     @Basic(optional = false)
     @Column(name = "Status")

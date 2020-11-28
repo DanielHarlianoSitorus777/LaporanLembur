@@ -45,6 +45,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
+    public List<Overtime> getAllReport() {
+        return overtimeRepository.findAll();
+    }
+
+    @Override
     public List<Overtime> getReportbyDepartment(Employee employee) {
         return overtimeRepository.findByEmployee(employee);
     }

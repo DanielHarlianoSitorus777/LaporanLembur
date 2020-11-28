@@ -6,34 +6,27 @@
 package com.example.LaporanLembur.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import lombok.Data;
 
 /**
  *
  * @author Ardian
  */
-@Data
 @Entity
 @Table(name = "title")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Title.findAll", query = "SELECT t FROM Title t")
     , @NamedQuery(name = "Title.findById", query = "SELECT t FROM Title t WHERE t.id = :id")
-    , @NamedQuery(name = "Title.findByTitle", query = "SELECT t FROM Title t WHERE t.title = :title")})
+    , @NamedQuery(name = "Title.findByTitle", query = "SELECT t FROM Title t WHERE t.title = :title")
+    , @NamedQuery(name = "Title.findByJobDesc", query = "SELECT t FROM Title t WHERE t.jobDesc = :jobDesc")})
 public class Title implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,14 +38,8 @@ public class Title implements Serializable {
     @Column(name = "Title")
     private String title;
     @Basic(optional = false)
-    @Lob
-    @Column(name = "Job Desc")
+    @Column(name = "Job_Desc")
     private String jobDesc;
-    @OneToMany(mappedBy = "title", fetch = FetchType.LAZY)
-    private List<Employee> employeeList;
-//    @OneToMany
-//    @JoinColumn(name = "id")
-//    private Employee employee;
 
     public Title() {
     }
@@ -90,24 +77,6 @@ public class Title implements Serializable {
     public void setJobDesc(String jobDesc) {
         this.jobDesc = jobDesc;
     }
-
-    @XmlTransient
-    public List<Employee> getEmployeeList() {
-        return employeeList;
-    }
-
-    public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = employeeList;
-    }
-    
-//    @XmlTransient
-//    public Employee getEmployee() {
-//        return employee;
-//    }
-//
-//    public void setEmployee(Employee employee) {
-//        this.employee = employee;
-//    }
 
     @Override
     public int hashCode() {

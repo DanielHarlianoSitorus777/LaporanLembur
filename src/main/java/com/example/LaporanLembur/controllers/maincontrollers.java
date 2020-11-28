@@ -9,7 +9,10 @@ import com.example.LaporanLembur.dao.EmployeeDao;
 import com.example.LaporanLembur.daoimpl.AdminDaoImpl;
 import com.example.LaporanLembur.daoimpl.EmployeeDaoImpl;
 import com.example.LaporanLembur.entities.TempRole;
+import com.example.LaporanLembur.repositories.DepartmentRepository;
 import com.example.LaporanLembur.repositories.EmployeeRepository;
+import com.example.LaporanLembur.repositories.OvertimeRepository;
+import com.example.LaporanLembur.repositories.PolicyRepository;
 import com.example.LaporanLembur.repositories.TitleRepository;
 import com.example.LaporanLembur.services.EmployeeService;
 import javax.servlet.http.HttpServletRequest;
@@ -90,9 +93,23 @@ public class maincontrollers {
     @Autowired
     EmployeeDaoImpl employeeDaoImpl;
     
+    @Autowired
+    OvertimeRepository overtimeRepository;
+    
+    @Autowired
+    DepartmentRepository departmentRepository;
+    
+    @Autowired
+    PolicyRepository policyRepository;
+    
     @GetMapping("/personal")
     public String personalReport(Model model) {
-//        model.addAttribute("history", employeeDaoImpl.getReportbyDepartment(employeeRepository.findById(5).get()));
+//        model.addAttribute("history", employeeDaoImpl.getAllReport());
+        System.out.println("Report : " + overtimeRepository.findById(3).get().getStatus());
+        System.out.println("Department : " + departmentRepository.findById(1).get().getDepartment());
+        System.out.println("Employee : " + employeeRepository.findById(1).get().getName());
+        System.out.println("Policy : " + policyRepository.findById(2).get().getDescription());
+        System.out.println("Title : " + titleRepository.findById(1).get().getTitle());
         return "reportpribadi";
     }
     
