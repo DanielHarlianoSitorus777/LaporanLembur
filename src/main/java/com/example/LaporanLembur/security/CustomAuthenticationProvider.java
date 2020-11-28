@@ -76,7 +76,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         }
 
 //        try {
-//            role = employeeService.findTitleById(id).getTitle();
+//            role = loginService.getTitle(id).getTitle();
 //            System.out.println("Title : " + role);
 //        } catch (Exception e) {
 //            System.out.println("Exception Auth : " + e);
