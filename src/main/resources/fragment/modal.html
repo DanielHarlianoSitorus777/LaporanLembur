@@ -1,0 +1,51 @@
+<div th:fragment="input-form">
+    <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLabel">Data Input</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form th:object="${people}" th:action="@{/save}" method="POST">
+                    
+                    <div class="modal-body">
+                        <table>
+                            <tr style="text-align: left">
+                            <label for="id">Id</label>
+                            <input type="text" class="form-control" id="id" th:field="*{id}">
+                            </tr>
+                            
+                            <tr style="text-align: left">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" th:field="*{name}">
+                            </tr>
+                            
+                            <tr style="text-align: left">
+                            <label for="age">Age</label>
+                            <input type="number" class="form-control" id="age" th:field="*{age}">
+                            </tr>
+                            
+                            <tr style="text-align: left">
+                            <label for="gender">Gender</label>
+                            <select id="gender" name="gender" class="custom-select" th:field="*{gender}">
+                                <option value="MALE">Laki-laki</option>
+                                <option value="FEMALE">Perempuan</option>
+                            </select>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <a th:href="@{/}" type="button" class="btn btn-secondary" data-dismiss="modal">Close</a>
+                        <button type="submit" value="Save" name="Save" class="btn btn-primary" onclick="saveNotification()">
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -10,6 +10,7 @@ import com.example.LaporanLembur.daoimpl.AdminDaoImpl;
 import com.example.LaporanLembur.daoimpl.EmployeeDaoImpl;
 import com.example.LaporanLembur.entities.TempRole;
 import com.example.LaporanLembur.repositories.EmployeeRepository;
+import com.example.LaporanLembur.repositories.TitleRepository;
 import com.example.LaporanLembur.services.EmployeeService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +35,9 @@ public class maincontrollers {
     @Autowired
     EmployeeService employeeService;
     
+    @Autowired
+    TitleRepository titleRepository;
+    
     // LOGIN
     
     @GetMapping("/login_error")
@@ -43,6 +47,7 @@ public class maincontrollers {
     
     @GetMapping("/login")
     public String login() {
+//        System.out.println("Title : " + titleRepository.getOne(1));
         return "login";
     }
     

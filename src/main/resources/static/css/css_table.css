@@ -1,71 +1,102 @@
 body {
-	font-family: "Source Sans Pro", sans-serif;
-	overflow-x: hidden !important;
-	margin: 0px !important;
-	padding: 0px !important;
+    font-family: "Source Sans Pro", sans-serif;
+    overflow-x: hidden !important;
+    margin: 0px !important;
+    padding: 0px !important;
 }
 * {
-	text-decoration: none !important;
+    text-decoration: none !important;
 }
 .nav {
-	position: fixed;
-	z-index: 1000;
-	top: 0;
-	right: 0;
-	left: 0;
-	height: 80px;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	padding: 0 25px 0 25px;
-	background-color: #fff;
-	box-shadow: 0 5px 5px rgba(0,0,0,0.10);
-	border-bottom-left-radius: 10px;
-	border-bottom-right-radius: 10px;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px 0 25px;
+    background-color: #fff;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.10);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 .nav .menu a {
-	margin-right: 25px;
-	font-size: 16px;
-	font-weight: 300;
-	color: #000;
+    margin-right: 25px;
+    font-size: 16px;
+    font-weight: 300;
+    color: #000;
 }
 .nav .menu .mainMenu a {
-	font-weight: 600;
+    font-weight: 600;
 }
 .nav h4 {
-	font-size: 22px;
-	font-weight: bold;
-	margin-left: 25px;
+    font-size: 22px;
+    font-weight: bold;
+    margin-left: 25px;
 }
 .nav img {
-	height: 40px;
+    height: 40px;
 }
 .nav .logout a {
-	color: red;
+    color: red;
 }
 .table h1 {
-	text-align: center;
+    text-align: center;
 }
 .table .actualTable {
-	margin-left: auto;
-  	margin-right: auto;
-  	width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
 }
 .table .actualTable img {
-	height: 30px;
+    height: 30px;
 }
 .table .actualTable .employee img {
-	height: 25px;
+    height: 25px;
 }
 .table .addBtn button {
-	color: black;
-	background-color: aqua;
-	border: none;
-	padding: 10px 30px;
-	text-align: center;
-  	text-decoration: none;
-  	border-radius: 12px;
-  	font-weight: bold;
-  	margin-left: 70%;
+    color: black;
+    background-color: aqua;
+    border: none;
+    padding: 10px 30px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: bold;
+    margin-left: 70%;
+}
+.box{
+    width: 600px;
+    height: 400px;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.10);
+    padding: 50px;
+    margin: 10px;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+h1{
+    text-align: center;
+}
+.submitBtn {
+    width: 100%;
+    background-color: LawnGreen;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: bold;
+}
+textarea {
+    resize: none;
+    width: 595px;
 }

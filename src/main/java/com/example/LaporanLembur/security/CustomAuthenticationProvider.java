@@ -57,6 +57,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         String role = null;
         int id = loginInput.getEmployee().getTitle().getId();
+        Title title;
         
         System.out.println("Id : " + id);
         
@@ -76,7 +77,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         }
 
 //        try {
-//            role = loginService.getTitle(id).getTitle();
+//            title = loginService.getTitle(id);
+//            role = title.getTitle();
 //            System.out.println("Title : " + role);
 //        } catch (Exception e) {
 //            System.out.println("Exception Auth : " + e);

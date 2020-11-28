@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -19,11 +20,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import lombok.Data;
 
 /**
  *
  * @author Ardian
  */
+@Data
 @Entity
 @Table(name = "title")
 @XmlRootElement
@@ -47,6 +50,9 @@ public class Title implements Serializable {
     private String jobDesc;
     @OneToMany(mappedBy = "title", fetch = FetchType.LAZY)
     private List<Employee> employeeList;
+//    @OneToMany
+//    @JoinColumn(name = "id")
+//    private Employee employee;
 
     public Title() {
     }
@@ -93,6 +99,15 @@ public class Title implements Serializable {
     public void setEmployeeList(List<Employee> employeeList) {
         this.employeeList = employeeList;
     }
+    
+//    @XmlTransient
+//    public Employee getEmployee() {
+//        return employee;
+//    }
+//
+//    public void setEmployee(Employee employee) {
+//        this.employee = employee;
+//    }
 
     @Override
     public int hashCode() {
