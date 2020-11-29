@@ -33,9 +33,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Title.findByJobDesc", query = "SELECT t FROM Title t WHERE t.jobDesc = :jobDesc")})
 public class Title implements Serializable {
 
-    @OneToMany(mappedBy = "title", fetch = FetchType.LAZY)
-    private List<Employee> employeeList;
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -47,6 +44,8 @@ public class Title implements Serializable {
     @Basic(optional = false)
     @Column(name = "Job_Desc")
     private String jobDesc;
+    @OneToMany(mappedBy = "title", fetch = FetchType.LAZY)
+    private List<Employee> employeeList;
 
     public Title() {
     }
@@ -85,6 +84,15 @@ public class Title implements Serializable {
         this.jobDesc = jobDesc;
     }
 
+    @XmlTransient
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -108,15 +116,6 @@ public class Title implements Serializable {
     @Override
     public String toString() {
         return "com.example.LaporanLembur.entities.Title[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public List<Employee> getEmployeeList() {
-        return employeeList;
-    }
-
-    public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = employeeList;
     }
     
 }

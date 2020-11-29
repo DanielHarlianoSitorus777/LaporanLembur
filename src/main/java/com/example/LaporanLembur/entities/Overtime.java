@@ -16,7 +16,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -41,7 +40,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Overtime.findByDescription", query = "SELECT o FROM Overtime o WHERE o.description = :description")
     , @NamedQuery(name = "Overtime.findByManagerNotes", query = "SELECT o FROM Overtime o WHERE o.managerNotes = :managerNotes")
     , @NamedQuery(name = "Overtime.findByStatus", query = "SELECT o FROM Overtime o WHERE o.status = :status")})
-//@NamedNativeQuery(name = "Overtime.findByEmployee", query = "SELECT employee.NIK, employee.Name AS, overtime.`Submit Date` AS , overtime.Description, overtime.`Status`, TIMEDIFF(overtime.`End Time`,overtime.`Start Time`) AS `Hours` FROM employee, overtime, department WHERE employee.Id = overtime.Employee AND employee.Department = department.Id AND employee.Department = :employee")
 public class Overtime implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,24 +52,20 @@ public class Overtime implements Serializable {
     @Column(name = "Submit_Date")
     @Temporal(TemporalType.DATE)
     private Date submitDate;
-    @Basic(optional = false)
     @Column(name = "Start_Time")
     @Temporal(TemporalType.TIME)
     private Date startTime;
-    @Basic(optional = false)
     @Column(name = "End_Time")
     @Temporal(TemporalType.TIME)
     private Date endTime;
-    @Basic(optional = false)
     @Column(name = "Total_Time")
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date totalTime;
     @Basic(optional = false)
     @Column(name = "Description")
     private String description;
     @Column(name = "Manager_Notes")
     private String managerNotes;
-    @Basic(optional = false)
     @Column(name = "Status")
     private String status;
     @JoinColumn(name = "Department", referencedColumnName = "Id")
@@ -88,19 +82,10 @@ public class Overtime implements Serializable {
         this.id = id;
     }
 
-    public Overtime(Date submitDate, Date startTime) {
-        this.submitDate = submitDate;
-        this.startTime = startTime;
-    }
-
-    public Overtime(Integer id, Date submitDate, Date startTime, Date endTime, Date totalTime, String description, String status) {
+    public Overtime(Integer id, Date submitDate, String description) {
         this.id = id;
         this.submitDate = submitDate;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.totalTime = totalTime;
         this.description = description;
-        this.status = status;
     }
 
     public Integer getId() {

@@ -16,7 +16,7 @@ import com.example.LaporanLembur.repositories.OvertimeRepository;
 import com.example.LaporanLembur.repositories.PolicyRepository;
 import com.example.LaporanLembur.repositories.TitleRepository;
 import com.example.LaporanLembur.services.EmployeeService;
-import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -58,6 +58,11 @@ public class maincontrollers {
 
     @GetMapping("/login")
     public String login() {
+//        Timestamp ts = new Timestamp(System.currentTimeMillis());
+//        Date date = new Date();
+//        System.out.println(new Timestamp(employeeDaoImpl.getReportbyDepartment(departmentRepository.getOne(1)).get(0).getTotalTime().getTime()));
+//        SimpleDateFormat formatter = new SimpleDateFormat("mm/dd/YYYY");
+//        System.out.println("history : " + ts);
         return "login";
     }
 
@@ -67,6 +72,8 @@ public class maincontrollers {
         String view = null;
 
         model.addAttribute("employee", employeeRepository.getOne(TempValue.id));
+        model.addAttribute("department", employeeRepository.getOne(TempValue.id).getDepartment().getId());
+        System.out.println(employeeRepository.getOne(TempValue.id).getDepartment().getId());
 
         SimpleDateFormat formatter = new SimpleDateFormat("mm/dd/yyyy");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -94,11 +101,6 @@ public class maincontrollers {
         String view = null;
 
         model.addAttribute("employee", employeeRepository.getOne(TempValue.id));
-
-        SimpleDateFormat formatter = new SimpleDateFormat("mm/dd/yyyy");
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-        Date date = new Date();
-        Time time = new Time(1, 5, 2);
 
         model.addAttribute("form", new Overtime());
 
@@ -138,6 +140,9 @@ public class maincontrollers {
     @GetMapping("/department")
     public String departmentReport(Model model) {
         model.addAttribute("history", employeeDaoImpl.getReportbyDepartment(departmentRepository.getOne(TempValue.deptId)));
+        
+        SimpleDateFormat formatter = new SimpleDateFormat("mm/dd/yyyy");
+//        System.out.println("history : " + formatter.format("1606659535"));
         return "reportdivisi";
     }
 
@@ -149,16 +154,20 @@ public class maincontrollers {
         model.addAttribute("employee", adminDaoImpl.getAllEmployee());
         return "employeelist";
     }
-    
+
     @GetMapping("/employee/{id}")
     public String employeeList(Model model, @PathVariable("id") int id) {
         model.addAttribute("employee", employeeRepository.findById(id).get());
+        model.addAttribute("department", departmentRepository.findAll());
+        model.addAttribute("title", titleRepository.findAll());
         return "updatekaryawan";
     }
 
     @GetMapping("/addemployee")
     public String employeeForm(Model model) {
         model.addAttribute("employee", new Employee());
+        model.addAttribute("department", departmentRepository.findAll());
+        model.addAttribute("title", titleRepository.findAll());
         return "updatekaryawan";
     }
 
@@ -183,16 +192,16 @@ public class maincontrollers {
         overtimeRepository.save(overtime);
         return "redirect:/";
     }
-    
+
     @PostMapping("/saveemployee")
     public String addEmployee(Employee employee, Model model) {
         model.addAttribute("employee", adminDaoImpl.getAllEmployee());
         employeeRepository.save(employee);
         return "redirect:/employee";
     }
-    
+
     // DELETE
-    @RequestMapping(value = "/deleteemployee/{id}", method = { RequestMethod.GET, RequestMethod.POST })
+    @RequestMapping(value = "/deleteemployee/{id}", method = {RequestMethod.GET, RequestMethod.POST})
     public String delete(@PathVariable("id") int id, Model model) {
         model.addAttribute("employee", adminDaoImpl.getAllEmployee());
         employeeRepository.deleteById(id);

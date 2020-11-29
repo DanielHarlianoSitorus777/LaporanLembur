@@ -87,6 +87,10 @@ and open the template in the editor.
                         <div class="pr-4">
                             <table>
                                 <tr>
+                                    <td>ID</td>
+                                    <td><input type="text" class="form-control" id="nik" th:field="*{id}" readonly></td>
+                                </tr>
+                                <tr>
                                     <td>NIK</td>
                                     <td><input type="text" class="form-control" id="nik" th:field="*{nik}"></td>
                                 </tr>
@@ -96,15 +100,27 @@ and open the template in the editor.
                                 </tr>
                                 <tr>
                                     <td>Title</td>
-                                    <td><input type="text" class="form-control" id="title" th:field="*{title}"></td>
+                                    <td>
+                                        <select name="title" id="title" class="form-control" th:field="*{title}">
+                                            <option th:each="as : ${title}"  th:value="${as.id}" th:text="${as.title}"/>
+                                        </select>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Department</td>
-                                    <td><input type="text" class="form-control" id="department" th:field="*{department}"></td>
+                                    <td>
+                                        <select name="department" id="department" class="form-control" th:field="*{department}">
+                                            <option th:each="as : ${department}"  th:value="${as.id}" th:text="${as.department}"/>
+                                        </select>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Manager</td>
-                                    <td><input type="text" class="form-control" id="manager" th:field="*{manager}"></td>
+                                    <td>
+                                        <select name="manager" id="manager" class="form-control" th:field="*{manager}">
+                                            <option th:each="as : ${department}"  th:value="${as.manager.id}" th:text="${as.manager.name}"/>
+                                        </select>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Telepon</td>

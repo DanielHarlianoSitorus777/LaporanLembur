@@ -15,16 +15,18 @@
                         <div class="row text-left">
                             <div class="col-md-4">
                                 <label for="submitDate">Tanggal</label><br>
-                                <input style="width: 100%" type="date" id="submitDate" th:field="*{submitDate}" required> 
+                                <input style="width: 100%" type="text" id="submitDate" th:field="*{submitDate}" required> 
                             </div>
                             <div class="col-md-4">
                                 <label for="startTime">Start Time</label><br>
-                                <input style="width: 100%" type="time" th:field="*{startTime}" id="startTime" min="18:00" max="22:00" required>
+                                <input style="width: 100%" type="text" th:field="*{startTime}" id="startTime" min="18:00" max="22:00" required>
                             </div>
                             <div class="col-md-4">
                                 <label for="endTime">End Time</label><br>
-                                <input style="width: 100%" type="time" id="endTime" th:field="*{endTime}" min="20:00" max="23:00" required>
+                                <input style="width: 100%" type="text" id="endTime" th:field="*{endTime}" min="20:00" max="23:00" required>
                             </div>
+                            <input style="width: 100%" type="hidden" th:value="${employee.id}" name="employee">
+                            <input style="width: 100%" type="hidden" th:value="${department}" name="department">
                         </div>
                         <div class="row text-left mt-3">
                             <div class="col">
