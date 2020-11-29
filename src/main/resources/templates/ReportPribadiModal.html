@@ -65,7 +65,7 @@ and open the template in the editor.
             </div>
         </nav>
         <!-- Navbar -->
-        <!--<div th:insert="../fragment/formdetail::lembur-detail"></div>-->
+        <div th:insert="../fragment/formdetail::lembur-detail"></div>
         <br /><br />
         <div class="table p-5" border="1">
             <h1>Report History</h1><br>
@@ -101,6 +101,7 @@ and open the template in the editor.
         <script>
             $(document).ready(function () {
                 $('#tb').DataTable();
+                $('#OvertimeDetail').modal('show');
             });
         </script>
     </body>

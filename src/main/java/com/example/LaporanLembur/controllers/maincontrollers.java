@@ -134,7 +134,15 @@ public class maincontrollers {
     @GetMapping("/personal")
     public String personalReport(Model model) {
         model.addAttribute("history", employeeDaoImpl.getReportByEmployee(employeeRepository.getOne(TempValue.id)));
+        model.addAttribute("report", overtimeRepository.getOne(1));
         return "reportpribadi";
+    }
+    
+    @GetMapping("/personal/{id}")
+    public String personalReportDetail(Model model, @PathVariable("id") int id) {
+        model.addAttribute("history", employeeDaoImpl.getReportByEmployee(employeeRepository.getOne(TempValue.id)));
+        model.addAttribute("report", overtimeRepository.getOne(id));
+        return "reportpribadimodal";
     }
 
     @GetMapping("/department")

@@ -50,7 +50,7 @@ public class Overtime implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @Column(name = "Submit_Date")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date submitDate;
     @Column(name = "Start_Time")
     @Temporal(TemporalType.TIME)
@@ -59,8 +59,7 @@ public class Overtime implements Serializable {
     @Temporal(TemporalType.TIME)
     private Date endTime;
     @Column(name = "Total_Time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date totalTime;
+    private String totalTime;
     @Basic(optional = false)
     @Column(name = "Description")
     private String description;
@@ -120,11 +119,11 @@ public class Overtime implements Serializable {
         this.endTime = endTime;
     }
 
-    public Date getTotalTime() {
+    public String getTotalTime() {
         return totalTime;
     }
 
-    public void setTotalTime(Date totalTime) {
+    public void setTotalTime(String totalTime) {
         this.totalTime = totalTime;
     }
 
