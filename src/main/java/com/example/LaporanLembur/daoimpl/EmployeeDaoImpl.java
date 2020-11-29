@@ -24,6 +24,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
     DepartmentRepository departmentRepository;
 
     @Override
+    public List<Employee> getEmployeeByDepartment(Department department) {
+        return employeeRepository.findByDepartment(department);
+    }
+
+    @Override
     public Department getDepartment(int id) {
         return departmentRepository.findById(id).get();
     }
@@ -50,8 +55,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public List<Overtime> getReportbyDepartment(Employee employee) {
+    public List<Overtime> getReportByEmployee(Employee employee) {
         return overtimeRepository.findByEmployee(employee);
+    }
+
+    @Override
+    public List<Overtime> getReportbyDepartment(Department department) {
+        return overtimeRepository.findByDepartment(department);
     }
 
     @Override

@@ -8,6 +8,7 @@ package com.example.LaporanLembur.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,6 +34,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Department.findById", query = "SELECT d FROM Department d WHERE d.id = :id")
     , @NamedQuery(name = "Department.findByDepartment", query = "SELECT d FROM Department d WHERE d.department = :department")})
 public class Department implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "department", fetch = FetchType.LAZY)
+    private List<Overtime> overtimeList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -116,6 +120,15 @@ public class Department implements Serializable {
     @Override
     public String toString() {
         return "com.example.LaporanLembur.entities.Department[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public List<Overtime> getOvertimeList() {
+        return overtimeList;
+    }
+
+    public void setOvertimeList(List<Overtime> overtimeList) {
+        this.overtimeList = overtimeList;
     }
     
 }

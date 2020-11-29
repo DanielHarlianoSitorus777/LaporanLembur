@@ -74,7 +74,6 @@ and open the template in the editor.
             <table class="table table-striped" id="tb">
                 <thead>
                     <tr>
-                        <th>No</th>
                         <th>NIK</th>
                         <th>Nama</th>
                         <th>Tanggal</th>
@@ -85,15 +84,14 @@ and open the template in the editor.
                 </thead>
                 <tbody>
                     <tr th:each="as : ${history}">
-                        <td></td>
-                        <td th:text="${as.nik}"></td>
-                        <td th:text="${as.nama}"></td>
-                        <td th:text="${as.tanggal}"></td>
-                        <td th:text="${as.note}"></td>
-                        <td th:text="${as.jam}"></td>
+                        <td th:text="${as.employee.nik}"></td>
+                        <td th:text="${as.employee.name}"></td>
+                        <td th:text="${as.submitDate}"></td>
+                        <td th:text="${as.managerNotes}"></td>
+                        <td th:text="${as.totalTime}"></td>
                         <td>
-                            <img th:src="@{/images/cross.png}" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <img th:src="@{/images/check.png}" />
+                            <img th:src="@{/images/cross.png}" height="24"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <img th:src="@{/images/check.png}" height="24"/>
                         </td>
                     </tr>
                 </tbody>

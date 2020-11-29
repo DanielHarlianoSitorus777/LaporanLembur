@@ -6,14 +6,18 @@
 package com.example.LaporanLembur.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,6 +32,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Title.findByTitle", query = "SELECT t FROM Title t WHERE t.title = :title")
     , @NamedQuery(name = "Title.findByJobDesc", query = "SELECT t FROM Title t WHERE t.jobDesc = :jobDesc")})
 public class Title implements Serializable {
+
+    @OneToMany(mappedBy = "title", fetch = FetchType.LAZY)
+    private List<Employee> employeeList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -101,6 +108,15 @@ public class Title implements Serializable {
     @Override
     public String toString() {
         return "com.example.LaporanLembur.entities.Title[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
     }
     
 }

@@ -15,7 +15,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
@@ -38,10 +37,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Overtime.findBySubmitDate", query = "SELECT o FROM Overtime o WHERE o.submitDate = :submitDate")
     , @NamedQuery(name = "Overtime.findByStartTime", query = "SELECT o FROM Overtime o WHERE o.startTime = :startTime")
     , @NamedQuery(name = "Overtime.findByEndTime", query = "SELECT o FROM Overtime o WHERE o.endTime = :endTime")
+    , @NamedQuery(name = "Overtime.findByTotalTime", query = "SELECT o FROM Overtime o WHERE o.totalTime = :totalTime")
     , @NamedQuery(name = "Overtime.findByDescription", query = "SELECT o FROM Overtime o WHERE o.description = :description")
     , @NamedQuery(name = "Overtime.findByManagerNotes", query = "SELECT o FROM Overtime o WHERE o.managerNotes = :managerNotes")
     , @NamedQuery(name = "Overtime.findByStatus", query = "SELECT o FROM Overtime o WHERE o.status = :status")})
-@NamedNativeQuery(name = "Overtime.findByEmployee", query = "SELECT employee.NIK, employee.Name AS, overtime.`Submit Date` AS , overtime.Description, overtime.`Status`, TIMEDIFF(overtime.`End Time`,overtime.`Start Time`) AS `Hours` FROM employee, overtime, department WHERE employee.Id = overtime.Employee AND employee.Department = department.Id AND employee.Department = :employee")
+//@NamedNativeQuery(name = "Overtime.findByEmployee", query = "SELECT employee.NIK, employee.Name AS, overtime.`Submit Date` AS , overtime.Description, overtime.`Status`, TIMEDIFF(overtime.`End Time`,overtime.`Start Time`) AS `Hours` FROM employee, overtime, department WHERE employee.Id = overtime.Employee AND employee.Department = department.Id AND employee.Department = :employee")
 public class Overtime implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -63,7 +63,10 @@ public class Overtime implements Serializable {
     @Temporal(TemporalType.TIME)
     private Date endTime;
     @Basic(optional = false)
-    @Lob
+    @Column(name = "Total_Time")
+    @Temporal(TemporalType.TIME)
+    private Date totalTime;
+    @Basic(optional = false)
     @Column(name = "Description")
     private String description;
     @Column(name = "Manager_Notes")
@@ -71,6 +74,9 @@ public class Overtime implements Serializable {
     @Basic(optional = false)
     @Column(name = "Status")
     private String status;
+    @JoinColumn(name = "Department", referencedColumnName = "Id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Department department;
     @JoinColumn(name = "Employee", referencedColumnName = "Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Employee employee;
@@ -82,11 +88,12 @@ public class Overtime implements Serializable {
         this.id = id;
     }
 
-    public Overtime(Integer id, Date submitDate, Date startTime, Date endTime, String description, String status) {
+    public Overtime(Integer id, Date submitDate, Date startTime, Date endTime, Date totalTime, String description, String status) {
         this.id = id;
         this.submitDate = submitDate;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.totalTime = totalTime;
         this.description = description;
         this.status = status;
     }
@@ -123,6 +130,14 @@ public class Overtime implements Serializable {
         this.endTime = endTime;
     }
 
+    public Date getTotalTime() {
+        return totalTime;
+    }
+
+    public void setTotalTime(Date totalTime) {
+        this.totalTime = totalTime;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -145,6 +160,14 @@ public class Overtime implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     public Employee getEmployee() {

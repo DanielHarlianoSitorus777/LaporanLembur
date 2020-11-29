@@ -5,10 +5,9 @@
  */
 package com.example.LaporanLembur.controllers;
 
-import com.example.LaporanLembur.dao.EmployeeDao;
 import com.example.LaporanLembur.daoimpl.AdminDaoImpl;
 import com.example.LaporanLembur.daoimpl.EmployeeDaoImpl;
-import com.example.LaporanLembur.entities.TempRole;
+import com.example.LaporanLembur.entities.TempValue;
 import com.example.LaporanLembur.repositories.DepartmentRepository;
 import com.example.LaporanLembur.repositories.EmployeeRepository;
 import com.example.LaporanLembur.repositories.OvertimeRepository;
@@ -50,7 +49,6 @@ public class maincontrollers {
     
     @GetMapping("/login")
     public String login() {
-//        System.out.println("Title : " + titleRepository.getOne(1));
         return "login";
     }
     
@@ -60,7 +58,7 @@ public class maincontrollers {
     public String index() {
         String view = null;
         
-        if (null != TempRole.role) switch (TempRole.role) {
+        if (null != TempValue.role) switch (TempValue.role) {
             case "Manager":
                 return view = "dashboardmanager";
             case "Karyawan":
@@ -77,7 +75,7 @@ public class maincontrollers {
     public String home() {
         String view = null;
         
-        if (null != TempRole.role) switch (TempRole.role) {
+        if (null != TempValue.role) switch (TempValue.role) {
             case "Manager":
                 return view = "dashboardmanager";
             case "Karyawan":
@@ -104,17 +102,13 @@ public class maincontrollers {
     
     @GetMapping("/personal")
     public String personalReport(Model model) {
-//        model.addAttribute("history", employeeDaoImpl.getAllReport());
-        System.out.println("Report : " + overtimeRepository.findById(3).get().getStatus());
-        System.out.println("Department : " + departmentRepository.findById(1).get().getDepartment());
-        System.out.println("Employee : " + employeeRepository.findById(1).get().getName());
-        System.out.println("Policy : " + policyRepository.findById(2).get().getDescription());
-        System.out.println("Title : " + titleRepository.findById(1).get().getTitle());
+        model.addAttribute("history", employeeDaoImpl.getReportByEmployee(employeeRepository.getOne(TempValue.id)));
         return "reportpribadi";
     }
     
     @GetMapping("/department")
-    public String departmentReport() {
+    public String departmentReport(Model model) {
+        model.addAttribute("history", employeeDaoImpl.getReportbyDepartment(departmentRepository.getOne(TempValue.deptId)));
         return "reportdivisi";
     }
     

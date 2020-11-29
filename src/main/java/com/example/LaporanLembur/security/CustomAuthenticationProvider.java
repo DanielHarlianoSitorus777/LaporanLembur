@@ -57,32 +57,19 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         String role = null;
         int id = loginInput.getEmployee().getTitle().getId();
+        int employeeId = loginInput.getEmployee().getId();
+        int departmentId = loginInput.getEmployee().getDepartment().getId();
         Title title;
         
         System.out.println("Id : " + id);
-        
-        switch(id) {
-            case 1: 
-                role = "Karyawan";
-                break;
-            case 2:
-                role = "Manager";
-                break;
-            case 3:
-                role = "Admin";
-                break;
-            default:
-                role = null;
-                break;
-        }
 
-//        try {
-//            title = loginService.getTitle(id);
-//            role = title.getTitle();
-//            System.out.println("Title : " + role);
-//        } catch (Exception e) {
-//            System.out.println("Exception Auth : " + e);
-//        }
+        try {
+            title = loginService.getTitle(id);
+            role = title.getTitle();
+            System.out.println("Title : " + role);
+        } catch (Exception e) {
+            System.out.println("Exception Auth : " + e);
+        }
         
         System.out.println("Title : " + role);
 
@@ -91,9 +78,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             grantedAuths.add(new SimpleGrantedAuthority(role)); // Get Roles
             final UserDetails principal = new User(name, password, grantedAuths); // Membuat user
             final Authentication auth = new UsernamePasswordAuthenticationToken(principal, password, grantedAuths);
-//            TempId.id = loginOutput.getUser().getId();
-//            System.out.println(TempId.id);
-            TempRole.role = role;
+            TempValue.role = role;
+            TempValue.id = employeeId;
+            TempValue.deptId = departmentId;
             return auth;
         } else {
             return null;

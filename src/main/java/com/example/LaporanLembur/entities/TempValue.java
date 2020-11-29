@@ -9,6 +9,8 @@ package com.example.LaporanLembur.entities;
  *
  * @author Ardian
  */
-public class TempRole {
+public class TempValue {
     public static String role;
+    public static int id;
+    public static int deptId;
 }
