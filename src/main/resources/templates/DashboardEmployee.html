@@ -72,11 +72,10 @@
                 <div class="container mt-5">
                     <div>
                         <div style='text-align: left'>
-                            <h6> NIK - 672018123 </h6>
-                            <h5><b> Ardian Pramudya </b></h5>
-                            <h8 style="font-size: 14px;">Divisi IT</h8><br>
-                            <h8 style="font-size: 14px;">Karyawan</h8><br><br>
-                            <!--<input class="btn btn-primary" type="submit" value="New Report" data-toggle="OvertimeForm" data-target="#OvertimeDetail">-->
+                            <h6> NIK - <span th:text="${employee.nik}"></span> </h6>
+                            <h5 th:text="${employee.name}" class="font-weight-bold"></h5>
+                            <h8 style="font-size: 14px;">Department <span th:text="${employee.department.department}"></span></h8><br>
+                            <h8 style="font-size: 14px;" th:text="${employee.title.title}"></h8><br><br>
                             <button type="button" class="btn btn-primary" data-toggle="Fmodal" data-target="#OvertimeForm"  >
                                 New Report
                             </button>

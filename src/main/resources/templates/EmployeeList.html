@@ -46,7 +46,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/home}">Home</a>
+                        <a class="nav-link" th:href="@{/}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/employee}"
@@ -64,7 +64,7 @@
         <div class="table p-5" border="1">
             <h1>Report History</h1>
             <div class="text-right">
-                <button type="button" class="btn btn-info" data-toggle="modal" data-target="OvertimeForm">Add</button>
+                <a th:href="@{/addemployee}" class="btn btn-info">Add</a>
             </div>
             <br>
             <table class="table table-striped" id="tb">
@@ -73,8 +73,8 @@
                         <th>No</th>
                         <th>NIK</th>
                         <th>Nama</th>
-                        <!--<th>Role</th>-->
-                        <th>Divisi</th>
+                        <th>Title</th>
+                        <th>Department</th>
                         <th>Telepon</th>
                         <th>Email</th>
                         <th>Alamat</th>
@@ -86,14 +86,14 @@
                         <td th:text="${as.id}"></td>
                         <td th:text="${as.nik}"></td>
                         <td th:text="${as.name}"></td>
-                        <!--<td th:text="${as.title}"></td>-->
+                        <td th:text="${as.title.title}"></td>
                         <td th:text="${as.department.department}"></td>
                         <td th:text="${as.telephone}"></td>
                         <td th:text="${as.email}"></td>
                         <td th:text="${as.address}"></td>
                         <td class="employee">
-                            <img th:src="@{/images/edit.png}" height="24">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <img th:src="@{/images/delete.png}" height="24">
+                            <a th:href="@{/employee/} + ${as.id}"><img th:src="@{/images/edit.png}" height="24"></a>
+                            <a th:href="@{/deleteemployee/} + ${as.id}"><img th:src="@{/images/delete.png}" height="24"></a>
                         </td>
                     </tr>
                 </tbody>

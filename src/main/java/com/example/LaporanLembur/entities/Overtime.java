@@ -88,6 +88,11 @@ public class Overtime implements Serializable {
         this.id = id;
     }
 
+    public Overtime(Date submitDate, Date startTime) {
+        this.submitDate = submitDate;
+        this.startTime = startTime;
+    }
+
     public Overtime(Integer id, Date submitDate, Date startTime, Date endTime, Date totalTime, String description, String status) {
         this.id = id;
         this.submitDate = submitDate;

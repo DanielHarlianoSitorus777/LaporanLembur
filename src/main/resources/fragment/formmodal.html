@@ -11,31 +11,31 @@
                     </button>
                 </div>
                 <div class="modal-body container">
-                    <form th:object="${employee}" th:action="@{save}" method="POST">
+                    <form th:object="${form}" th:action="@{/createreport}" method="POST">
                         <div class="row text-left">
                             <div class="col-md-4">
-                                <label for="tanggal">Tanggal</label><br>
-                                <input style="width: 100%" type="date" id="tanggal" value="2020-11-23" min="2020-11-23" max="2020-11-30" required> 
+                                <label for="submitDate">Tanggal</label><br>
+                                <input style="width: 100%" type="date" id="submitDate" th:field="*{submitDate}" required> 
                             </div>
                             <div class="col-md-4">
-                                <label for="start">Start Time</label><br>
-                                <input style="width: 100%" type="time" value="18:00" id="start" min="18:00" max="22:00" required>
+                                <label for="startTime">Start Time</label><br>
+                                <input style="width: 100%" type="time" th:field="*{startTime}" id="startTime" min="18:00" max="22:00" required>
                             </div>
                             <div class="col-md-4">
-                                <label for="end">End Time</label><br>
-                                <input style="width: 100%" type="time" id="endt" min="20:00" max="23:00" required>
+                                <label for="endTime">End Time</label><br>
+                                <input style="width: 100%" type="time" id="endTime" th:field="*{endTime}" min="20:00" max="23:00" required>
                             </div>
                         </div>
                         <div class="row text-left mt-3">
                             <div class="col">
-                                <label for="deskripsi">Deskripsi</label><br>
-                                <textarea style="width: 100%" id="deskripsi" rows="10" cols="30"></textarea>
+                                <label for="description">Deskripsi</label><br>
+                                <textarea style="width: 100%" id="description" th:field="*{description}" rows="10" cols="30"></textarea>
                             </div>
                         </div>
+                        <div class="modal-footer">
+                            <input class="submitBtn" type="submit" id="submit" value="Submit">
+                        </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <input class="submitBtn" type="submit" id="submit" value="Submit">
                 </div>
             </div>
         </div>
