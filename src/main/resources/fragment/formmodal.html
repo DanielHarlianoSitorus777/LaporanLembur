@@ -15,15 +15,15 @@
                         <div class="row text-left">
                             <div class="col-md-4">
                                 <label for="submitDate">Tanggal</label><br>
-                                <input style="width: 100%" type="text" id="submitDate" th:field="*{submitDate}"> 
+                                <input style="width: 100%" type="date" id="submitDate" th:value="${{date}}" name="submitDate"> 
                             </div>
                             <div class="col-md-4">
                                 <label for="startTime">Start Time</label><br>
-                                <input style="width: 100%" type="text" th:field="*{startTime}" id="startTime" min="18:00" max="22:00" required>
+                                <input style="width: 100%" type="text" th:value="${{time}}" name="startTime" id="startTime" min="18:00" max="22:00" required>
                             </div>
                             <div class="col-md-4">
                                 <label for="endTime">End Time</label><br>
-                                <input style="width: 100%" type="text" id="endTime" th:field="*{endTime}" min="20:00" max="23:00" required>
+                                <input style="width: 100%" type="text" id="endTime" th:field="*{endTime}" name="endTime" min="20:00" max="23:59" placeholder="dd/MM/yyy HH:mm:ss" required>
                             </div>
                             <input style="width: 100%" type="hidden" th:value="${employee.id}" name="employee">
                             <input style="width: 100%" type="hidden" th:value="${department}" name="department">

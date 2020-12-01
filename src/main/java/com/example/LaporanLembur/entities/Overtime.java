@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Ardian
  */
 @Entity
-@Table(name = "overtime")
+@Table(name = "overtime", catalog = "db_overtime", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Overtime.findAll", query = "SELECT o FROM Overtime o")
@@ -39,7 +39,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Overtime.findByTotalTime", query = "SELECT o FROM Overtime o WHERE o.totalTime = :totalTime")
     , @NamedQuery(name = "Overtime.findByDescription", query = "SELECT o FROM Overtime o WHERE o.description = :description")
     , @NamedQuery(name = "Overtime.findByManagerNotes", query = "SELECT o FROM Overtime o WHERE o.managerNotes = :managerNotes")
-    , @NamedQuery(name = "Overtime.findByStatus", query = "SELECT o FROM Overtime o WHERE o.status = :status")})
+    , @NamedQuery(name = "Overtime.findByStatus", query = "SELECT o FROM Overtime o WHERE o.status = :status")
+    , @NamedQuery(name = "Overtime.findTopByEmployeeAndOrderByIdDesc", query = "SELECT o FROM Overtime o WHERE o.employee = :employee ORDER BY o.id DESC")
+    , @NamedQuery(name = "Overtime.findTopByDepartmentAndOrderByIdDesc", query = "SELECT o FROM Overtime o WHERE o.department = :department ORDER BY o.id DESC")})
 public class Overtime implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -50,8 +52,7 @@ public class Overtime implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @Column(name = "Submit_Date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date submitDate;
+    private String submitDate;
     @Column(name = "Start_Time")
     @Temporal(TemporalType.TIME)
     private Date startTime;
@@ -81,7 +82,7 @@ public class Overtime implements Serializable {
         this.id = id;
     }
 
-    public Overtime(Integer id, Date submitDate, String description) {
+    public Overtime(Integer id, String submitDate, String description) {
         this.id = id;
         this.submitDate = submitDate;
         this.description = description;
@@ -95,11 +96,11 @@ public class Overtime implements Serializable {
         this.id = id;
     }
 
-    public Date getSubmitDate() {
+    public String getSubmitDate() {
         return submitDate;
     }
 
-    public void setSubmitDate(Date submitDate) {
+    public void setSubmitDate(String submitDate) {
         this.submitDate = submitDate;
     }
 

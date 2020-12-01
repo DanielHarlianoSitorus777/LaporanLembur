@@ -1,0 +1,54 @@
+<!--Modal-->
+<div th:fragment="overtime-manager">
+    <!-- Modal -->
+    <div class="modal fade" id="OvertimeManager" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Overtime Detail</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form th:object="${report}" th:action="@{/createreport}" method="POST">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div th:text="${report.submitDate}" th:value="${report.submitDate}" name="submitDate" class="font-weight-bold"></div>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <div class="font-weight-bold">NIK - <span th:text="${report.employee.nik}" class="font-weight-bold"></span></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div>
+                                    <span th:text="${report.startTime}" th:value="${report.startTime}" name="startTime"></span> - <span th:text="${report.endTime}" th:value="${report.endTime}" name="endTime"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <div th:text="${report.employee.name}" class="font-weight-bold"></div>
+                            </div>
+                            <input style="width: 100%" type="hidden" th:value="${report.employee.id}" name="employee">
+                            <input style="width: 100%" type="hidden" th:value="${report.department.id}" name="department">
+                            <input style="width: 100%" type="hidden" th:value="${report.totalTime}" name="totalTime">
+                            <input style="width: 100%" type="hidden" th:value="${report.id}" name="id">
+                            <input style="width: 100%" type="hidden" th:value="${report.status}" name="status">
+                            <input class="d-none" style="width: 100%" type="text" th:value="${startTime}" name="startTime" id="startTime" min="18:00" max="22:00" required>
+                            <input class="d-none" style="width: 100%" type="text" id="endTime" th:value="${endTime}" name="endTime" min="20:00" max="23:59" placeholder="dd/MM/yyy HH:mm:ss" required>
+                            <input style="width: 100%" type="hidden" id="submitDate" th:value="${report.submitDate}" name="submitDate"> 
+                        </div>
+                        <div class="font-weight-bold">Department - <span th:text="${report.employee.department.department}" class="font-weight-bold"></span></div>
+                        <label for="deskripsi" class="mt-5">Deskripsi</label><br>
+                        <textarea id="deskripsi" rows="10" cols="30" style="width: 100%" th:field="*{description}" readonly></textarea>
+                        <label for="managerNotes" class="mt-5">Manager Notes</label><br>
+                        <textarea id="managerNotes" rows="10" cols="30" style="width: 100%" th:field="*{managerNotes}"></textarea>
+                        <div class="modal-footer">
+                            <input class="submitBtn" type="submit" id="submit" value="Submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

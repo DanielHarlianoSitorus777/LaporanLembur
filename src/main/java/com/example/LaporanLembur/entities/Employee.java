@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Ardian
  */
 @Entity
-@Table(name = "employee")
+@Table(name = "employee", catalog = "db_overtime", schema = "")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
@@ -39,8 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Employee.findByPassword", query = "SELECT e FROM Employee e WHERE e.password = :password")
     , @NamedQuery(name = "Employee.findByEmail", query = "SELECT e FROM Employee e WHERE e.email = :email")
     , @NamedQuery(name = "Employee.findByTelephone", query = "SELECT e FROM Employee e WHERE e.telephone = :telephone")
-    , @NamedQuery(name = "Employee.findByAddress", query = "SELECT e FROM Employee e WHERE e.address = :address")
-    , @NamedQuery(name = "Employee.findByDepartment", query = "SELECT e FROM Employee e WHERE e.department = :department")})
+    , @NamedQuery(name = "Employee.findByAddress", query = "SELECT e FROM Employee e WHERE e.address = :address")})
 public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -231,5 +230,5 @@ public class Employee implements Serializable {
     public String toString() {
         return "com.example.LaporanLembur.entities.Employee[ id=" + id + " ]";
     }
-
+    
 }

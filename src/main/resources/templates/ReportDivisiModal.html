@@ -68,7 +68,7 @@ and open the template in the editor.
         </nav>
         <!-- Navbar -->
         
-        <!--<div th:insert="../fragment/formmanager::overtime-manager"></div>-->
+        <div th:insert="../fragment/formmanager::overtime-manager"></div>
         
         <br /><br />
         <div class="table p-5">
@@ -86,7 +86,7 @@ and open the template in the editor.
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="as : ${history}" >
+                    <tr th:each="as : ${history}">
                         <td th:text="${as.employee.nik}"></td>
                         <td th:text="${as.employee.name}"></td>
                         <td th:text="${as.submitDate}"></td>
@@ -114,6 +114,7 @@ and open the template in the editor.
         <script>
             $(document).ready(function () {
                 $('#tb').DataTable();
+                $('#OvertimeManager').modal('show');
             });
         </script>
     </body>
