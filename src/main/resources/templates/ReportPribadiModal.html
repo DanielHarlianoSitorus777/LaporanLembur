@@ -33,64 +33,35 @@ and open the template in the editor.
         </style>
     </head>
     <body>
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" th:href="@{/home}">
-                <img th:src="@{/images/calendar.png}" width="30" height="30" />
-                <b>KapitaApp</b>
-            </a>
-            <button
-                class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-                >
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/home}"
-                           >Home <span class="sr-only">(current)</span></a
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/personal}">Riwayat</a>
-                    </li>
-                </ul>
-                <a th:href="@{/logout}" class="text-danger">Logout</a>
-            </div>
-        </nav>
-        <!-- Navbar -->
+        <div th:insert="../fragment/navbarmanager::navbarmanager"></div>
         <div th:insert="../fragment/formdetail::lembur-detail"></div>
-        <br /><br />
-        <div class="table p-5" border="1">
-            <h1>Report History</h1><br>
-            <table class="table table-striped" id="tb">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Status Persetujuan</th>
-                        <th>Tanggal</th>
-                        <th>Manager Note</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="as : ${history}">
-                        <td></td>
-                        <td th:text="${as.status}"></td>
-                        <td th:text="${as.submitDate}"></td>
-                        <td th:text="${as.managerNotes}"></td>
-                        <td>
-                            <a th:href="@{/personal/} + ${as.id}" type="button" class="btn btn-info btn-lg"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+
+        <div class="container mt-3">
+            <div class="table" border="1">
+                <h1>Report History</h1><br>
+                <table class="table table-striped" id="tb">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Status Persetujuan</th>
+                            <th>Tanggal</th>
+                            <th>Manager Note</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="as : ${history}">
+                            <td></td>
+                            <td th:text="${as.status}"></td>
+                            <td th:text="${as.submitDate}"></td>
+                            <td th:text="${as.managerNotes}"></td>
+                            <td>
+                                <a th:href="@{/personal/} + ${as.id}" type="button" class="btn btn-info btn-lg"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <!--JS-->
         <script th:src="@{https://code.jquery.com/jquery-3.5.1.slim.min.js}" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

@@ -186,7 +186,8 @@ public class maincontrollers {
     @GetMapping("/personal")
     public String personalReport(Model model) {
         model.addAttribute("history", employeeDaoImpl.getReportByEmployee(employeeRepository.getOne(TempValue.id)));
-        model.addAttribute("report", overtimeRepository.getOne(1));
+        model.addAttribute("report", employeeRepository.getOne(TempValue.id));
+        System.out.println("Id Personal : " + employeeRepository.getOne(TempValue.id).getTitle());
 
         System.out.println("Personal : " + employeeDaoImpl.getReportByEmployee(employeeRepository.getOne(TempValue.id)));
         return "reportpribadi";
@@ -265,20 +266,20 @@ public class maincontrollers {
     @PostMapping("/createreport")
     public String createReport(Overtime overtime) {
         overtimeRepository.save(overtime);
-        return "redirect:/";
+        return "redirect:/home/?result=update_success";
     }
 
     @GetMapping("/confirmReport/{id}/{status}")
     public String confirmReport(@PathVariable("id") int id, @PathVariable("status") String status) {
         overtimeRepository.confirmReport(id, status);
-        return "redirect:/department";
+        return "redirect:/department/?result=report_confirmed";
     }
 
     @PostMapping("/saveemployee")
     public String addEmployee(Employee employee, Model model) {
         model.addAttribute("employee", adminDaoImpl.getAllEmployee());
         employeeRepository.save(employee);
-        return "redirect:/employee";
+        return "redirect:/employee/?result=update_success";
     }
 
     // DELETE
@@ -286,6 +287,6 @@ public class maincontrollers {
     public String delete(@PathVariable("id") int id, Model model) {
         model.addAttribute("employee", adminDaoImpl.getAllEmployee());
         employeeRepository.deleteById(id);
-        return "redirect:/employee";
+        return "redirect:/employee/?result=data_deleted";
     }
 }

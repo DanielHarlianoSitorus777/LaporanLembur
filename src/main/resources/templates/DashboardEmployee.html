@@ -17,39 +17,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
 
-    <!-- Navbar -->
     <body style="background-color:#b0d9ff">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">
-                <img th:src="@{/images/calendar.png}" width="30" height="30" />
-                <b>KapitaApp</b>
-            </a>
-            <button
-                class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-                >
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/home}"
-                           >Home <span class="sr-only">(current)</span></a
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/personal}">Riwayat</a>
-                    </li>
-                </ul>
-                <a th:href="@{/logout}" class="text-danger">Logout</a>
-            </div>
-        </nav><br>
-        <!-- Navbar -->
+        <div th:insert="../fragment/navbaremployee::navbaremployee"></div>
 
         <div th:insert="../fragment/formmodal::lembur-form"></div>
 
