@@ -8,6 +8,7 @@ package com.example.LaporanLembur.repositories;
 import com.example.LaporanLembur.entities.Department;
 import com.example.LaporanLembur.entities.Employee;
 import com.example.LaporanLembur.entities.Overtime;
+import java.util.Date;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -40,4 +41,7 @@ public interface OvertimeRepository extends JpaRepository<Overtime, Integer> {
     @Modifying
     @Query("UPDATE Overtime o SET o.managerNotes = :managerNotes WHERE o.id = :id")
     void addNote(@Param("id") int id, @Param("managerNotes") String managerNotes);
+    
+    @Query("SELECT SUM(o.totalTime) FROM Overtime o WHERE o.employee = :employee AND MONTH(o.submitDate) = MONTH(CURDATE()) GROUP BY MONTH(o.submitDate)")
+    List<String> getCurrentMonthValue(@Param("employee") Employee employee);
 }

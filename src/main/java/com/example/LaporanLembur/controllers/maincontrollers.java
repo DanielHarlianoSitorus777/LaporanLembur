@@ -59,11 +59,9 @@ public class maincontrollers {
 
     @GetMapping("/login")
     public String login() {
-//        Timestamp ts = new Timestamp(System.currentTimeMillis());
-//        Date date = new Date();
-//        System.out.println(new Timestamp(employeeDaoImpl.getReportbyDepartment(departmentRepository.getOne(1)).get(0).getTotalTime().getTime()));
-//        SimpleDateFormat formatter = new SimpleDateFormat("mm/dd/YYYY");
-//        System.out.println("history : " + ts);
+        Date date = new Date();
+        System.out.println("Current month : " + (date.getMonth() + 1));
+        System.out.println("Month ; " + overtimeRepository.getCurrentMonthValue(employeeRepository.getOne(14)));
         return "login";
     }
 
@@ -89,12 +87,23 @@ public class maincontrollers {
 
         System.out.println("Day : " + date.getDay());
         int overtime = policyRepository.getOne(2).getTime() / 3600;
+        float hourSpent = 0;
+
+        try {
+            if (overtimeRepository.getCurrentMonthValue(employeeRepository.getOne(TempValue.id)) == null) {
+                hourSpent = 0;
+            } else if (overtimeRepository.getCurrentMonthValue(employeeRepository.getOne(TempValue.id)) != null) {
+                hourSpent = Float.parseFloat(overtimeRepository.getCurrentMonthValue(employeeRepository.getOne(TempValue.id)).get(0));
+            }
+        } catch (Exception e) {
+            System.out.println("Spent Hours Exception : " + e);
+        }
 
         // Check New Month
         if ((date.getDay() - 1) == 1) {
             model.addAttribute("overtime", overtime);
         }
-        model.addAttribute("overtime", overtime);
+        model.addAttribute("overtime", overtime - hourSpent);
 
         if (null != TempValue.role) {
             switch (TempValue.role) {
@@ -139,12 +148,13 @@ public class maincontrollers {
         model.addAttribute("time", timeFormat.format(new Date().getTime()));
         System.out.println("Day : " + date.getDay());
         int overtime = policyRepository.getOne(2).getTime() / 3600;
-
+        float hourSpent = Float.parseFloat(overtimeRepository.getCurrentMonthValue(employeeRepository.getOne(TempValue.id)).get(0));
+        System.out.println("HOur : " + hourSpent);
         // Check New Month
         if ((date.getDay() - 1) == 1) {
             model.addAttribute("overtime", overtime);
         }
-        model.addAttribute("overtime", overtime);
+        model.addAttribute("overtime", overtime - hourSpent);
 
         if (null != TempValue.role) {
             switch (TempValue.role) {

@@ -111,13 +111,22 @@
                                 <h5 th:text="${employee.name}" class="font-weight-bold"></h5>
                                 <h8 style="font-size: 14px;">Department <span th:text="${employee.department.department}"></span></h8><br>
                                 <h8 style="font-size: 14px;" th:text="${employee.title.title}"></h8><br><br>
-                                <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#OvertimeForm"  >
-                                    New Report
-                                </button>
+                                <div th:if="${overtime <= 0}">
+                                    <span data-toggle="tooltip" data-placement="top" title="Jam Lembur Sudah Habis">
+                                        <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#OvertimeForm"  disabled>
+                                            New Report
+                                        </button>
+                                    </span>
+                                </div>
+                                <div th:if="${overtime > 0}">
+                                    <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#OvertimeForm" >
+                                        New Report
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>       
+                </div>  
             </div>
             <!--container-->
         </div>
