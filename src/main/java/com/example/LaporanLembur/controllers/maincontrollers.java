@@ -15,12 +15,14 @@ import com.example.LaporanLembur.repositories.EmployeeRepository;
 import com.example.LaporanLembur.repositories.OvertimeRepository;
 import com.example.LaporanLembur.repositories.PolicyRepository;
 import com.example.LaporanLembur.repositories.TitleRepository;
+import com.example.LaporanLembur.services.EmailService;
 import com.example.LaporanLembur.services.EmployeeService;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -284,11 +286,16 @@ public class maincontrollers {
         overtimeRepository.confirmReport(id, status);
         return "redirect:/department/?result=report_confirmed";
     }
+    
+    @Autowired
+    EmailService emailService;
 
     @PostMapping("/saveemployee")
-    public String addEmployee(Employee employee, Model model) {
+    public String addEmployee(Employee employee, Model model) throws MessagingException {
         model.addAttribute("employee", adminDaoImpl.getAllEmployee());
         employeeRepository.save(employee);
+        System.out.println("Email : " + employee.getEmail());
+        emailService.sendEmailNotif(employee.getEmail());
         return "redirect:/employee/?result=update_success";
     }
 
