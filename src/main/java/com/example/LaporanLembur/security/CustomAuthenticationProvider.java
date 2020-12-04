@@ -8,7 +8,6 @@ package com.example.LaporanLembur.security;
 import com.example.LaporanLembur.daoimpl.EmployeeDaoImpl;
 import com.example.LaporanLembur.entities.*;
 import com.example.LaporanLembur.repositories.TitleRepository;
-import com.example.LaporanLembur.services.EmployeeService;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +39,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     EmployeeDaoImpl loginService;
 
-    @Autowired
-    EmployeeService employeeService;
-
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
@@ -73,7 +69,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         
         System.out.println("Title : " + role);
 
-        if (loginInput.getEmail().equals(employeeService.findByEmail(loginInput.getEmail()).getEmail()) && loginInput.getPassword().equals(employeeService.findByEmail(loginInput.getEmail()).getPassword())) {
+        if (loginInput.getEmail().equals(loginService.getEmployeeByEmail(loginInput.getEmail()).getEmail()) && loginInput.getPassword().equals(loginService.getEmployeeByEmail(loginInput.getEmail()).getPassword())) {
             final List<GrantedAuthority> grantedAuths = new ArrayList<>();
             grantedAuths.add(new SimpleGrantedAuthority(role)); // Get Roles
             final UserDetails principal = new User(name, password, grantedAuths); // Membuat user

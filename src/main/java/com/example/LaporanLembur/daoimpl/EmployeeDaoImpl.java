@@ -8,7 +8,6 @@ package com.example.LaporanLembur.daoimpl;
 import com.example.LaporanLembur.dao.EmployeeDao;
 import com.example.LaporanLembur.entities.*;
 import com.example.LaporanLembur.repositories.*;
-import com.example.LaporanLembur.services.EmployeeService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +22,20 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Autowired
     DepartmentRepository departmentRepository;
 
+    @Autowired
+    TitleRepository titleRepository;
+
+    @Autowired
+    OvertimeRepository overtimeRepository;
+    
+    @Autowired
+    EmployeeRepository employeeRepository;
+
+    @Override
+    public Employee getEmployeeByEmail(String email) {
+        return employeeRepository.findByEmail(email);
+    }
+
     @Override
     public List<Employee> getEmployeeByDepartment(Department department) {
         return employeeRepository.findByDepartment(department);
@@ -33,16 +46,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
         return departmentRepository.findById(id).get();
     }
 
-    @Autowired
-    TitleRepository titleRepository;
-
     @Override
     public Title getTitle(int id) {
         return titleRepository.findById(id).get();
     }
-
-    @Autowired
-    OvertimeRepository overtimeRepository;
 
     @Override
     public Overtime getReport(int id) {
@@ -65,20 +72,34 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public Overtime approveReport(Overtime approval) {
-        return overtimeRepository.save(approval);
+    public Overtime getLatestReport() {
+        return overtimeRepository.findTopByOrderByIdDesc();
     }
 
     @Override
-    public Overtime createReport(Overtime overtime) {
-        return overtimeRepository.save(overtime);
+    public List<Overtime> getEmployeeLatestReport(Employee employee) {
+        return overtimeRepository.findTopByEmployeeAndOrderByIdDesc(employee);
     }
 
-    @Autowired
-    EmployeeService employeeService;
-    
-    @Autowired
-    EmployeeRepository employeeRepository;
+    @Override
+    public List<Overtime> getDepartmentLatestReport(Department department) {
+        return overtimeRepository.findTopByDepartmentAndOrderByIdDesc(department);
+    }
+
+    @Override
+    public void confirmReport(int id, String status) {
+        overtimeRepository.confirmReport(id, status);
+    }
+
+    @Override
+    public void addNote(int id, String managerNotes) {
+        overtimeRepository.addNote(id, managerNotes);
+    }
+
+    @Override
+    public List<String> getCurrentMonthTotalOvertime(Employee employee) {
+        return overtimeRepository.getCurrentMonthValue(employee);
+    }
 
     @Override
     public void login(Login login) {
@@ -89,10 +110,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
             System.out.println("email : " + email);
             System.out.println("pass : " + password);
-            System.out.println("emailrepo : " + employeeService.findByEmail(email).getEmail());
+            System.out.println("emailrepo : " + employeeRepository.findByEmail(email).getEmail());
 
-            if (email.equals(employeeService.findByEmail(email).getEmail()) || password.equals(employeeService.findByEmail(email).getPassword())) {
-                login.setEmployee(employeeService.findByEmail(email));
+            if (email.equals(employeeRepository.findByEmail(email).getEmail()) || password.equals(employeeRepository.findByEmail(email).getPassword())) {
+                login.setEmployee(employeeRepository.findByEmail(email));
             } else {
                 System.out.println("No employee");
             }

@@ -13,6 +13,7 @@ import java.util.List;
  * @author Ardian
  */
 public interface EmployeeDao {
+    public Employee getEmployeeByEmail(String email);
     public List<Employee> getEmployeeByDepartment(Department department);
     public Department getDepartment(int id);
     public Title getTitle(int id);
@@ -20,7 +21,11 @@ public interface EmployeeDao {
     public List<Overtime> getAllReport();
     public List<Overtime> getReportByEmployee(Employee employee);
     public List<Overtime> getReportbyDepartment(Department department);
-    public Overtime approveReport(Overtime approval);
-    public Overtime createReport(Overtime overtime);
+    public Overtime getLatestReport();
+    public List<Overtime> getEmployeeLatestReport(Employee employee);
+    public List<Overtime> getDepartmentLatestReport(Department department);
+    public void confirmReport(int id, String status);
+    public void addNote(int id, String managerNotes);
+    public List<String> getCurrentMonthTotalOvertime(Employee employee);
     public void login(Login login);
 }

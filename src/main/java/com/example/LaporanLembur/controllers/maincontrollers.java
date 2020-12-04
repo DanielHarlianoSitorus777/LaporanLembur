@@ -16,11 +16,8 @@ import com.example.LaporanLembur.repositories.OvertimeRepository;
 import com.example.LaporanLembur.repositories.PolicyRepository;
 import com.example.LaporanLembur.repositories.TitleRepository;
 import com.example.LaporanLembur.services.EmailService;
-import com.example.LaporanLembur.services.EmployeeService;
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.Date;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -48,10 +45,22 @@ public class maincontrollers {
     EmployeeRepository employeeRepository;
 
     @Autowired
-    EmployeeService employeeService;
+    TitleRepository titleRepository;
+    
+    @Autowired
+    OvertimeRepository overtimeRepository;
 
     @Autowired
-    TitleRepository titleRepository;
+    DepartmentRepository departmentRepository;
+
+    @Autowired
+    PolicyRepository policyRepository;
+
+    @Autowired
+    EmployeeDaoImpl employeeDaoImpl;
+    
+    @Autowired
+    AdminDaoImpl adminDaoImpl;
 
     // LOGIN
     @GetMapping("/login_error")
@@ -61,9 +70,6 @@ public class maincontrollers {
 
     @GetMapping("/login")
     public String login() {
-        Date date = new Date();
-        System.out.println("Current month : " + (date.getMonth() + 1));
-        System.out.println("Month ; " + overtimeRepository.getCurrentMonthValue(employeeRepository.getOne(14)));
         return "login";
     }
 
@@ -92,10 +98,10 @@ public class maincontrollers {
         float hourSpent = 0;
 
         try {
-            if (overtimeRepository.getCurrentMonthValue(employeeRepository.getOne(TempValue.id)) == null) {
+            if (employeeDaoImpl.getCurrentMonthTotalOvertime(employeeRepository.getOne(TempValue.id)) == null) {
                 hourSpent = 0;
-            } else if (overtimeRepository.getCurrentMonthValue(employeeRepository.getOne(TempValue.id)) != null) {
-                hourSpent = Float.parseFloat(overtimeRepository.getCurrentMonthValue(employeeRepository.getOne(TempValue.id)).get(0));
+            } else if (employeeDaoImpl.getCurrentMonthTotalOvertime(employeeRepository.getOne(TempValue.id)) != null) {
+                hourSpent = Float.parseFloat(employeeDaoImpl.getCurrentMonthTotalOvertime(employeeRepository.getOne(TempValue.id)).get(0));
             }
         } catch (Exception e) {
             System.out.println("Spent Hours Exception : " + e);
@@ -110,18 +116,18 @@ public class maincontrollers {
         if (null != TempValue.role) {
             switch (TempValue.role) {
                 case "Manager":
-                    if (overtimeRepository.findTopByEmployeeAndOrderByIdDesc(employeeRepository.getOne(TempValue.id)).size() > 0 && overtimeRepository.findTopByDepartmentAndOrderByIdDesc(employeeRepository.getOne(TempValue.id).getDepartment()).size() > 0) {
-                        model.addAttribute("latestPersonalReport", overtimeRepository.findTopByEmployeeAndOrderByIdDesc(employeeRepository.getOne(TempValue.id)).get(0));
-                        model.addAttribute("departmentLatestReport", overtimeRepository.findTopByDepartmentAndOrderByIdDesc(employeeRepository.getOne(TempValue.id).getDepartment()).get(0));
+                    if (employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(TempValue.id)).size() > 0 && employeeDaoImpl.getDepartmentLatestReport(employeeRepository.getOne(TempValue.id).getDepartment()).size() > 0) {
+                        model.addAttribute("latestPersonalReport", employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(TempValue.id)).get(0));
+                        model.addAttribute("departmentLatestReport", employeeDaoImpl.getDepartmentLatestReport(employeeRepository.getOne(TempValue.id).getDepartment()).get(0));
                     }
                     return view = "dashboardmanager";
                 case "Karyawan":
-                    if (overtimeRepository.findTopByEmployeeAndOrderByIdDesc(employeeRepository.getOne(TempValue.id)).size() > 0) {
-                        model.addAttribute("latestPersonalReport", overtimeRepository.findTopByEmployeeAndOrderByIdDesc(employeeRepository.getOne(TempValue.id)).get(0));
+                    if (employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(TempValue.id)).size() > 0) {
+                        model.addAttribute("latestPersonalReport", employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(TempValue.id)).get(0));
                     } else {
                         model.addAttribute("latestPersonalReport", new Overtime());
                     }
-                    System.out.println("Size : " + overtimeRepository.findTopByEmployeeAndOrderByIdDesc(employeeRepository.getOne(TempValue.id)).size());
+                    System.out.println("Size : " + employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(TempValue.id)).size());
                     return view = "dashboardemployee";
                 case "Admin":
                     return view = "dashboardadmin";
@@ -150,8 +156,18 @@ public class maincontrollers {
         model.addAttribute("time", timeFormat.format(new Date().getTime()));
         System.out.println("Day : " + date.getDay());
         int overtime = policyRepository.getOne(2).getTime() / 3600;
-        float hourSpent = Float.parseFloat(overtimeRepository.getCurrentMonthValue(employeeRepository.getOne(TempValue.id)).get(0));
-        System.out.println("HOur : " + hourSpent);
+        float hourSpent = 0;
+
+        try {
+            if (employeeDaoImpl.getCurrentMonthTotalOvertime(employeeRepository.getOne(TempValue.id)) == null) {
+                hourSpent = 0;
+            } else if (employeeDaoImpl.getCurrentMonthTotalOvertime(employeeRepository.getOne(TempValue.id)) != null) {
+                hourSpent = Float.parseFloat(employeeDaoImpl.getCurrentMonthTotalOvertime(employeeRepository.getOne(TempValue.id)).get(0));
+            }
+        } catch (Exception e) {
+            System.out.println("Spent Hours Exception : " + e);
+        }
+
         // Check New Month
         if ((date.getDay() - 1) == 1) {
             model.addAttribute("overtime", overtime);
@@ -161,18 +177,18 @@ public class maincontrollers {
         if (null != TempValue.role) {
             switch (TempValue.role) {
                 case "Manager":
-                    if (overtimeRepository.findTopByEmployeeAndOrderByIdDesc(employeeRepository.getOne(TempValue.id)).size() > 0 && overtimeRepository.findTopByDepartmentAndOrderByIdDesc(employeeRepository.getOne(TempValue.id).getDepartment()).size() > 0) {
-                        model.addAttribute("latestPersonalReport", overtimeRepository.findTopByEmployeeAndOrderByIdDesc(employeeRepository.getOne(TempValue.id)).get(0));
-                        model.addAttribute("departmentLatestReport", overtimeRepository.findTopByDepartmentAndOrderByIdDesc(employeeRepository.getOne(TempValue.id).getDepartment()).get(0));
+                    if (employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(TempValue.id)).size() > 0 && employeeDaoImpl.getDepartmentLatestReport(employeeRepository.getOne(TempValue.id).getDepartment()).size() > 0) {
+                        model.addAttribute("latestPersonalReport", employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(TempValue.id)).get(0));
+                        model.addAttribute("departmentLatestReport", employeeDaoImpl.getDepartmentLatestReport(employeeRepository.getOne(TempValue.id).getDepartment()).get(0));
                     }
                     return view = "dashboardmanager";
                 case "Karyawan":
-                    if (overtimeRepository.findTopByEmployeeAndOrderByIdDesc(employeeRepository.getOne(TempValue.id)).size() > 0) {
-                        model.addAttribute("latestPersonalReport", overtimeRepository.findTopByEmployeeAndOrderByIdDesc(employeeRepository.getOne(TempValue.id)).get(0));
+                    if (employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(TempValue.id)).size() > 0) {
+                        model.addAttribute("latestPersonalReport", employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(TempValue.id)).get(0));
                     } else {
                         model.addAttribute("latestPersonalReport", new Overtime());
                     }
-                    System.out.println("Size : " + overtimeRepository.findTopByEmployeeAndOrderByIdDesc(employeeRepository.getOne(TempValue.id)).size());
+                    System.out.println("Size : " + employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(TempValue.id)).size());
                     return view = "dashboardemployee";
                 case "Admin":
                     return view = "dashboardadmin";
@@ -182,18 +198,6 @@ public class maincontrollers {
         }
         return view;
     }
-
-    @Autowired
-    EmployeeDaoImpl employeeDaoImpl;
-
-    @Autowired
-    OvertimeRepository overtimeRepository;
-
-    @Autowired
-    DepartmentRepository departmentRepository;
-
-    @Autowired
-    PolicyRepository policyRepository;
 
     @GetMapping("/personal")
     public String personalReport(Model model) {
@@ -209,6 +213,7 @@ public class maincontrollers {
     public String personalReportDetail(Model model, @PathVariable("id") int id) {
         model.addAttribute("history", employeeDaoImpl.getReportByEmployee(employeeRepository.getOne(TempValue.id)));
         model.addAttribute("report", overtimeRepository.getOne(id));
+        model.addAttribute("user", employeeRepository.getOne(TempValue.id));
         return "reportpribadimodal";
     }
 
@@ -233,9 +238,6 @@ public class maincontrollers {
 
         return "reportdivisimodal";
     }
-
-    @Autowired
-    AdminDaoImpl adminDaoImpl;
 
     @GetMapping("/employee")
     public String employeeList(Model model) {
@@ -286,7 +288,7 @@ public class maincontrollers {
         overtimeRepository.confirmReport(id, status);
         return "redirect:/department/?result=report_confirmed";
     }
-    
+
     @Autowired
     EmailService emailService;
 

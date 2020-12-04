@@ -20,9 +20,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AdminDaoImpl implements AdminDao {
-    
+
     @Autowired
     EmployeeRepository employeeRepository;
+
+    @Autowired
+    PolicyRepository policyRepository;
 
     @Override
     public List<Employee> getAllEmployee() {
@@ -39,12 +42,9 @@ public class AdminDaoImpl implements AdminDao {
         employeeRepository.deleteById(id);
     }
 
-    @Autowired
-    PolicyRepository policyRepository;
-    
     @Override
     public Policy savePolicy(Policy policy) {
         return policyRepository.save(policy);
     }
-    
+
 }

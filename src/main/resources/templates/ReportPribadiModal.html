@@ -33,7 +33,9 @@ and open the template in the editor.
         </style>
     </head>
     <body>
-        <div th:insert="../fragment/navbarmanager::navbarmanager"></div>
+        <div th:if="${user.title.title == 'Manager'}" th:insert="../fragment/navbarmanager::navbarmanager"></div>
+
+        <div th:unless="${user.title.title == 'Manager'}" th:insert="../fragment/navbaremployee::navbaremployee"></div>
         <div th:insert="../fragment/formdetail::lembur-detail"></div>
 
         <div class="container mt-3">
