@@ -9,6 +9,7 @@ import com.example.LaporanLembur.daoimpl.AdminDaoImpl;
 import com.example.LaporanLembur.daoimpl.EmployeeDaoImpl;
 import com.example.LaporanLembur.entities.Employee;
 import com.example.LaporanLembur.entities.Overtime;
+import com.example.LaporanLembur.entities.Policy;
 import com.example.LaporanLembur.entities.TempValue;
 import com.example.LaporanLembur.repositories.DepartmentRepository;
 import com.example.LaporanLembur.repositories.EmployeeRepository;
@@ -46,7 +47,7 @@ public class maincontrollers {
 
     @Autowired
     TitleRepository titleRepository;
-    
+
     @Autowired
     OvertimeRepository overtimeRepository;
 
@@ -58,9 +59,12 @@ public class maincontrollers {
 
     @Autowired
     EmployeeDaoImpl employeeDaoImpl;
-    
+
     @Autowired
     AdminDaoImpl adminDaoImpl;
+
+    @Autowired
+    EmailService emailService;
 
     // LOGIN
     @GetMapping("/login_error")
@@ -262,7 +266,16 @@ public class maincontrollers {
     }
 
     @GetMapping("/policy")
-    public String policy() {
+    public String policy(Model model) {
+        model.addAttribute("input", new Policy());
+        model.addAttribute("policy", policyRepository.findAll());
+        return "kebijakan";
+    }
+
+    @GetMapping("/policy/{id}")
+    public String getPolicyId(Model model, @PathVariable("id") int id) {
+        model.addAttribute("input", policyRepository.getOne(id));
+        model.addAttribute("policy", policyRepository.findAll());
         return "kebijakan";
     }
 
@@ -288,9 +301,6 @@ public class maincontrollers {
         overtimeRepository.confirmReport(id, status);
         return "redirect:/department/?result=report_confirmed";
     }
-
-    @Autowired
-    EmailService emailService;
 
     @PostMapping("/saveemployee")
     public String addEmployee(Employee employee, Model model) throws MessagingException {
