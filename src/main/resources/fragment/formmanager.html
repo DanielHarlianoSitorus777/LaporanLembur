@@ -11,7 +11,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form th:object="${report}" th:action="@{/createreport}" method="POST">
+                    <form th:object="${report}" th:action="@{/createnote/} + ${report.id}" method="POST">
                         <div class="row">
                             <div class="col-md-6">
                                 <div th:text="${report.submitDate}" th:value="${report.submitDate}" name="submitDate" class="font-weight-bold"></div>

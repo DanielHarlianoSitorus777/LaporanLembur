@@ -291,15 +291,26 @@ public class maincontrollers {
 
     // POST
     @PostMapping("/createreport")
-    public String createReport(Overtime overtime) {
+    public String createReport(Overtime overtime) throws MessagingException {
         overtimeRepository.save(overtime);
+        emailService.sendManagerNotif(employeeRepository.getOne(TempValue.id).getManager().getEmail(), employeeRepository.getOne(TempValue.id).getName());
         return "redirect:/home/?result=update_success";
     }
 
     @GetMapping("/confirmReport/{id}/{status}")
     public String confirmReport(@PathVariable("id") int id, @PathVariable("status") String status) {
         overtimeRepository.confirmReport(id, status);
+        System.out.println("Overtime : " + overtimeRepository.getOne(id).getEmployee().getEmail());
+        emailService.sendEmployeeConfirmationNotif(overtimeRepository.getOne(id).getEmployee().getEmail(), status);
         return "redirect:/department/?result=report_confirmed";
+    }
+
+    @PostMapping("/createnote/{id}")
+    public String addManagerNotes(Overtime overtime, @PathVariable("id") int id) throws MessagingException {
+        overtimeRepository.save(overtime);
+        System.out.println("Overtime : " + overtimeRepository.getOne(id).getEmployee().getEmail());
+        emailService.sendEmployeeNoteNotif(overtimeRepository.getOne(id).getEmployee().getEmail(), overtimeRepository.getOne(id).getManagerNotes());
+        return "redirect:/home/?result=update_success";
     }
 
     @PostMapping("/saveemployee")
