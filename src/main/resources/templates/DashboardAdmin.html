@@ -13,6 +13,13 @@
             integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
             crossorigin="anonymous"
             />
+        <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+        <!-- Custom styles for this template-->
+        <link href="/css/sb-admin-2.min.css" rel="stylesheet">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -56,54 +63,66 @@
 
         <!--container 1-->
         <div class="container">
-            <h3 class="font-weight-bold">Company Policy</h3>
-            <div class="container">
-                <div class="row">
-                    <div class="col shadow mt-4 p-3 mb-3" style=" border-radius: 10px; background-color: white;">
-                        <div class="container p-1">
-                            <div>
-                                <div style='text-align: left'>
-                                    <font class='h5'> <strong> Jam Lembur Maksimal </strong> </font>
-                                    <h4><b style="color: red;"><span th:text="${overtime}"></span> JAM </b></h4>
+            <div class="font-weight-bold mb-5 h3 text-dark">Company Policy</div>
+            <div class="row">
+                <div class="col">
+                    <div class="card border-left-primary shadow py-2 mb-3" >
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Jam Lembur Maksimal</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><span th:text="${overtime}"></span> JAM </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div> 
-                </div>
-                <!--container-->
-
-                <!--container 2-->
-                <div class="row">
-                    <div class="col-6" style="padding-left: 0px;">
-                        <div class="shadow p-3 mb-3 " style="text-align: left; border-radius: 10px; background-color: white; ">
-                            <font class='h5'> <strong> Awal Jam Lembur </strong> </font>
-                            <h4><b style="color: red;"> 18.00 </b></h4>
-                        </div>
-                    </div>
-
-                    <div class="col-6 " style="padding-right: 0px;">
-                        <div class="shadow p-3 mb-3 " style="text-align: left; border-radius: 10px; background-color: white; ">
-                            <font class='h5'> <strong> Akhir Jam Lembur Maksimal </strong> </font><br>
-                            <h4><b style="color: red;"> 00.00</b></h4>
-                        </div>
-                    </div>      
-                </div>
-                <!--container-->
-
-                <!--container3-->
-                <div class="row">
-                    <div class="col shadow p-3 mb-3" style=" border-radius: 10px; background-color: white;">
-                        <div class="container">
-                            <div>
-                                <div style='text-align: left'>
-                                    <font class='h5'> <strong> Aturan Lain </strong> </font><br>
-                                    <p> test test test test test test test test test test</p>
+                                <div class="col-auto">
+                                    <i class="fas fa-clock fa-2x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> 
             </div>
+            <!--container-->
+
+            <!--container 2-->
+            <div class="row">
+                <div class="col-6">
+                    <div class="card border-left-primary shadow py-2 mb-3" >
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Awal Jam Lembur</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">18.00 </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-clock fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-6 ">
+                    <div class="card border-left-primary shadow py-2 mb-3" >
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Akhir Jam Lembur Maksimal</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">00.00 </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-clock fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>      
+            </div>
+            <!--container-->
+
+            
         </div>
         <!--container-->
     </body>

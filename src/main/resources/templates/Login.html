@@ -1,80 +1,83 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
+<html lang="en">
 
     <head>
-        <title>Login</title>
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>SB Admin 2 - Login</title>
+
+        <!-- Custom fonts for this template-->
+        <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+        <!-- Custom styles for this template-->
+        <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+
     </head>
-    <style>
-        body{
 
-            text-align: center;
-            width: 600px;
-            height: 400px;
-            box-shadow: 0 10px 10px rgba(0,0,0,0.30);
-            border: 0px solid background;
-            padding: 50px;
-            margin: 10px;
-            position: absolute;
-            top:0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin: auto;
-            background-color: #b0d9ff;
+    <body class="bg-gradient-primary">
 
-        }
-        td{
-            padding: 20px;
-            align-items: center;
-            background-color: #F8F8FF;
-        }
-        img{
-            border: 2px;
-            height: 80px;
-            width: 80px;
-            border-radius: 70px;
-            margin-left: -40px;
-            position: absolute;
-            margin-top: -90px;
+        <div class="container">
 
+            <!-- Outer Row -->
+            <div class="row justify-content-center">
 
-        }
+                <div class="col-xl-10 col-lg-12 col-md-9">
 
-    </style>
-    <body>
-        <div>
-            <!--<img th:src="@{/images/icon.png}"/>-->
-            <h1>Sign In</h1>
-            <h6>New user? 
-                <a href="Create.html">Create an account</a>
-            </h6>
+                    <div class="card o-hidden border-0 shadow-lg my-5">
+                        <div class="card-body p-0">
+                            <!-- Nested Row within Card Body -->
+                            <div class="row">
+                                <div class="col-lg-6 d-none d-lg-block">
+                                    <img th:src="@{/images/KapitaApp.png}" alt="" class="w-100"/>
+                                </div>
+                                <div class="col-lg-6 pt-3">
+                                    <div class="p-5">
+                                        <div class="text-center">
+                                            <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        </div>
+                                        <form th:action="@{/execute_login}" method="post" class="user">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Username or email">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
+                                            </div>
+                                            <input class="btn btn-primary btn-user btn-block" type="submit" name="Login" value="Login">
+                                        </form>
+                                        <hr>
+                                        <div class="text-center">
+                                            <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
-        <!--form inputan-->
-        <div>
-            <center>
-                <form th:action="@{/execute_login}" method="post">
-                    <table>
-                        <tr>       
-                            <td><input type="text" class="form-control" id="username" name="username" placeholder="Username or email"></td>
-                        </tr>
-                        <tr>
 
-                            <td><input type="password" class="form-control" id="password" name="password" placeholder="Password"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" style="text-align: center"><input class="btn btn-primary" type="submit" name="Login" value="Login"></td>
-                        </tr>
-                    </table>
-                </form>
-            </center>
-        </div>
+        <!-- Bootstrap core JavaScript-->
+        <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+        <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script th:src="@{/js/sb-admin-2.min.js}"></script>
+
     </body>
+
 </html>

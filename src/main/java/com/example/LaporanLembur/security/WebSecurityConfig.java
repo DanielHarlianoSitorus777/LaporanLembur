@@ -41,7 +41,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()                            
-                .antMatchers("/login").anonymous()     
+                .antMatchers("/login").anonymous()
+                .antMatchers("/css/**").permitAll()
+                .antMatchers("/js/**").permitAll()
+                .antMatchers("/images/**").permitAll()
+                .antMatchers("/vendor/**").permitAll()
                 .anyRequest().authenticated()                   // user yang sudah diautentikasi
                 .and()
                 .formLogin()                                    // mengaktifkan form login

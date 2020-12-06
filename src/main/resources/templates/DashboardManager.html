@@ -15,6 +15,13 @@
             integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
             crossorigin="anonymous"
             />
+        <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+        <!-- Custom styles for this template-->
+        <link href="/css/sb-admin-2.min.css" rel="stylesheet">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -27,75 +34,84 @@
 
         <!--container 1-->
         <div class="container">
-            <h3 class="font-weight-bold">Report Summary</h3>
+            <div class="font-weight-bold mb-5 h3 text-dark">Report Summary</div>
             <div class="row">
                 <div class="col-8">
-                    <div class="shadow mt-4 p-3 mb-3" style=" border-radius: 10px; background-color: white;">
-                        <div class="container">
-                            <div style='text-align: left'>
-                                <font class='h5'> <strong> Jam Lembur Tersisa </strong> </font>
-                                <h4><b style="color: red;"><span th:text="${overtime}"></span> JAM </b></h4>
-                            </div>
-                        </div>
-                    </div>   
-                    <div class="shadow pt-3 pb-4 br-15 mt-1 mb-3 pr-5 p-3" style=" border-radius: 10px; background-color: white;">
-                        <div class="container">
-                            <div style='text-align: left'>
-                                <font class='h5'> <strong> Laporan Pribadi Terakhir </strong> </font><br>
-                                <table>
-                                    <tr>
-                                        <td><b>Tanggal</td></b>
-                                        <td><div th:text="${latestPersonalReport.submitDate}" class="ml-5"></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td><b> Start </b></td>
-                                        <td><div th:text="${latestPersonalReport.startTime}" class="ml-5"></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>End</td></b>
-                                        <td><div th:text="${latestPersonalReport.endTime}" class="ml-5"></div></td>
-                                    </tr><br>
-                                    <tr>
-                                        <td><b>Note</td></b>
-                                    </tr>
-                                    <tr>
-                                        <td><div th:text="${latestPersonalReport.description}"></div></td>
-                                    </tr>
-                                    <tr>
-                                </table>
+                    <div class="card border-left-primary shadow py-2 mb-3" >
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Jam Lembur Tersisa</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><span th:text="${overtime}"></span> JAM</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="shadow mb-5 p-3 pb-4" style=" border-radius: 10px; background-color: white;">
-                        <div class="container">
-                            <div>
-                                <div style='text-align: left'>
-                                    <font class='h5'> <strong> Laporan Department Terakhir </strong> </font><br>
-                                    <table>
-                                        <tr>
-                                            <td><b>Nama</td></b>
-                                            <td><div th:text="${departmentLatestReport.employee.name}" class="ml-5"></div></td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>Tanggal</td></b>
-                                            <td><div th:text="${departmentLatestReport.submitDate}" class="ml-5"></div></td>
-                                        </tr>
-                                        <tr>
-                                            <td><b> Start </b></td>
-                                            <td><div th:text="${departmentLatestReport.startTime}" class="ml-5"></div></td>
-                                        </tr>
-                                        <tr>
-                                            <td><b>End</td></b>
-                                            <td><div th:text="${departmentLatestReport.endTime}" class="ml-5"></div></td>
-                                        </tr><br>
-                                        <tr>
-                                            <td><b>Note</td></b>
-                                        </tr>
-                                        <tr>
-                                            <td><div th:text="${departmentLatestReport.description}"></div></td>
-                                        </tr>   
-                                        <tr>
-                                    </table>
+                    <div class="card border-left-primary shadow py-2 mb-3" >
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Laporan Pribadi Terakhir</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <table>
+                                            <tr>
+                                                <td><b>Tanggal</td></b>
+                                                <td><div th:text="${latestPersonalReport.submitDate}" class="ml-5"></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b> Start </b></td>
+                                                <td><div th:text="${latestPersonalReport.startTime}" class="ml-5"></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>End</td></b>
+                                                <td><div th:text="${latestPersonalReport.endTime}" class="ml-5"></div></td>
+                                            </tr><br>
+                                            <tr>
+                                                <td><b>Note</td></b>
+                                            </tr>
+                                            <tr>
+                                                <td><div th:text="${latestPersonalReport.description}"></div></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-left-primary shadow py-2 mb-3" >
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                        Laporan Department Terakhir</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                        <table>
+                                            <tr>
+                                                <td><b>Nama</td></b>
+                                                <td><div th:text="${departmentLatestReport.employee.name}" class="ml-5"></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Tanggal</td></b>
+                                                <td><div th:text="${departmentLatestReport.submitDate}" class="ml-5"></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b> Start </b></td>
+                                                <td><div th:text="${departmentLatestReport.startTime}" class="ml-5"></div></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>End</td></b>
+                                                <td><div th:text="${departmentLatestReport.endTime}" class="ml-5"></div></td>
+                                            </tr><br>
+                                            <tr>
+                                                <td><b>Note</td></b>
+                                            </tr>
+                                            <tr>
+                                                <td><div th:text="${departmentLatestReport.description}"></div></td>
+                                            </tr>   
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -103,30 +119,35 @@
                 </div>
 
                 <!--container samping-->
-                <div class="col-4 shadow mt-4 pt-3 pb-3 pr-3 h-50" style=" border-radius: 10px; background-color: white;">
-                    <div class="container">
-                        <div>
-                            <div style='text-align: left'>
-                                <h6> NIK - <span th:text="${employee.nik}"></span></h6>
-                                <h5 th:text="${employee.name}" class="font-weight-bold"></h5>
-                                <h8 style="font-size: 14px;">Department <span th:text="${employee.department.department}"></span></h8><br>
-                                <h8 style="font-size: 14px;" th:text="${employee.title.title}"></h8><br><br>
-                                <div th:if="${overtime <= 0}">
-                                    <span data-toggle="tooltip" data-placement="top" title="Jam Lembur Sudah Habis">
-                                        <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#OvertimeForm"  disabled>
-                                            New Report
-                                        </button>
-                                    </span>
-                                </div>
-                                <div th:if="${overtime > 0}">
-                                    <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#OvertimeForm" >
-                                        New Report
-                                    </button>
+                <div class="col-4">
+                    <div class="card border-left-primary shadow py-2 mb-3" >
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs mb-0 text-gray-800">NIK - <span th:text="${employee.nik}"></span></div>
+                                    <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">
+                                        <span th:text="${employee.name}"></span></div>
+                                    <div style='text-align: left'>
+                                        <h8 style="font-size: 14px;">Department <span th:text="${employee.department.department}"></span></h8><br>
+                                        <h8 style="font-size: 14px;" th:text="${employee.title.title}"></h8><br><br>
+                                        <div th:if="${overtime <= 0}">
+                                            <span data-toggle="tooltip" data-placement="top" title="Jam Lembur Sudah Habis">
+                                                <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#OvertimeForm"  disabled>
+                                                    New Report
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <div th:if="${overtime > 0}">
+                                            <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#OvertimeForm" >
+                                                New Report
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>  
+                </div>
             </div>
             <!--container-->
         </div>
