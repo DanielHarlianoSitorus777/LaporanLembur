@@ -116,6 +116,20 @@ public class maincontrollers {
             model.addAttribute("overtime", overtime);
         }
         model.addAttribute("overtime", overtime - hourSpent);
+        
+        int totalReport = 0;
+        
+        try {
+            if (employeeDaoImpl.getCurrentMonthTotalReport(employeeRepository.getOne(TempValue.id)) == null) {
+                totalReport = 0;
+            } else if (employeeDaoImpl.getCurrentMonthTotalReport(employeeRepository.getOne(TempValue.id)) != null) {
+                totalReport = Integer.parseInt(employeeDaoImpl.getCurrentMonthTotalReport(employeeRepository.getOne(TempValue.id)));
+            }
+        } catch (Exception e) {
+            System.out.println("Total Report Exception : " + e);
+        }
+        
+        model.addAttribute("totalreport", totalReport);
 
         if (null != TempValue.role) {
             switch (TempValue.role) {
@@ -177,6 +191,20 @@ public class maincontrollers {
             model.addAttribute("overtime", overtime);
         }
         model.addAttribute("overtime", overtime - hourSpent);
+        
+        int totalReport = 0;
+        
+        try {
+            if (employeeDaoImpl.getCurrentMonthTotalReport(employeeRepository.getOne(TempValue.id)) == null) {
+                totalReport = 0;
+            } else if (employeeDaoImpl.getCurrentMonthTotalReport(employeeRepository.getOne(TempValue.id)) != null) {
+                totalReport = Integer.parseInt(employeeDaoImpl.getCurrentMonthTotalReport(employeeRepository.getOne(TempValue.id)));
+            }
+        } catch (Exception e) {
+            System.out.println("Total Report Exception : " + e);
+        }
+        
+        model.addAttribute("totalreport", totalReport);
 
         if (null != TempValue.role) {
             switch (TempValue.role) {

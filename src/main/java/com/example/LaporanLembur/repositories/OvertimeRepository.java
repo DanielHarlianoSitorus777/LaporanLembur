@@ -44,4 +44,7 @@ public interface OvertimeRepository extends JpaRepository<Overtime, Integer> {
     
     @Query("SELECT SUM(o.totalTime) FROM Overtime o WHERE o.employee = :employee AND MONTH(o.submitDate) = MONTH(CURDATE()) GROUP BY MONTH(o.submitDate)")
     List<String> getCurrentMonthValue(@Param("employee") Employee employee);
+    
+    @Query("SELECT COUNT(o.id) FROM Overtime o WHERE o.employee = :employee AND MONTH(o.submitDate) = MONTH(CURDATE()) GROUP BY MONTH(o.submitDate)")
+    String getTotalReportCurrentMonth(@Param("employee") Employee employee);
 }

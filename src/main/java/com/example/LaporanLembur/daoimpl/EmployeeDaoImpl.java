@@ -102,6 +102,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
+    public String getCurrentMonthTotalReport(Employee employee) {
+        return overtimeRepository.getTotalReportCurrentMonth(employee);
+    }
+
+    @Override
     public void login(Login login) {
 
         try {

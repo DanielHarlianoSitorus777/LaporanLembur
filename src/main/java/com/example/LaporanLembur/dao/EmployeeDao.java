@@ -27,5 +27,6 @@ public interface EmployeeDao {
     public void confirmReport(int id, String status);
     public void addNote(int id, String managerNotes);
     public List<String> getCurrentMonthTotalOvertime(Employee employee);
+    public String getCurrentMonthTotalReport(Employee employee);
     public void login(Login login);
 }
