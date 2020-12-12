@@ -37,11 +37,6 @@ and open the template in the editor.
 
         <!-- Custom styles for this page -->
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-        <style>
-            body{
-                background-color: #b0d9ff;
-            }
-        </style>
     </head>
     <body>
 
@@ -49,8 +44,9 @@ and open the template in the editor.
 
         <div th:unless="${report.title.title == 'Manager'}" th:insert="../fragment/navbaremployee::navbaremployee"></div>
 
+        
         <div class="container mt-3">
-            <h3 class="text-center mb-5 font-weight-bolder text-dark">Report History</h3>
+            <h3 class="text-center mb-5 font-weight-bolder text-light bg-primary p-3 card shadow">Report History</h3>
             <div class="table" border="1">
                 <div class="card shadow mb-3">
                     <div class="card-body">

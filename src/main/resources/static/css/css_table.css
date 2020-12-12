@@ -3,6 +3,7 @@ body {
     overflow-x: hidden !important;
     margin: 0px !important;
     padding: 0px !important;
+    background-color: #f8f9fa !important;
 }
 * {
     text-decoration: none !important;

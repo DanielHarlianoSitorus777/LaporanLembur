@@ -7,6 +7,7 @@ and open the template in the editor.
 <html>
     <head>
         <title>Kebijakan</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/css_table.css}" />
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <!-- Custom fonts for this template -->
         <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -34,11 +35,14 @@ and open the template in the editor.
         }  
         .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
             color: #007bff;
-            background-color: #fff;
+            background-color: #efefef;
+        }
+        .nav {
+            background-color: #f8f9fa;
         }
     </style>
     <!-- Navbar -->
-    <body style="background-color:#b0d9ff">
+    <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" th:href="@{/home}">
                 <img th:src="@{/images/calendar.png}" width="30" height="30" />
@@ -74,8 +78,8 @@ and open the template in the editor.
         </nav>
         <!-- Navbar -->
 
-        <div class="container">
-            <ul class="nav nav-pills nav-fill mt-3">
+        <div class="container p-5">
+            <ul class="nav nav-pills nav-fill mt-5 p-3">
                 <li class="nav-item">
                     <a href="#input" class="nav-link active" data-toggle="tab">Add New Policy</a>
                 </li>
@@ -83,7 +87,7 @@ and open the template in the editor.
                     <a href="#policy" class="nav-link" data-toggle="tab">All Policy</a>
                 </li>
             </ul>
-            <div class="tab-content">
+            <div class="tab-content mt-5">
                 <div class="tab-pane fade show active" id="input">
                     <center>
                         <div class="row">
@@ -95,7 +99,7 @@ and open the template in the editor.
                                         </div>
                                     </div>
                                     <hr>
-                                    <form th:object="${input}" action="" method="POST">
+                                    <form th:object="${input}" th:action="@{/savepolicy}" method="POST">
                                         <table>
                                             <tr>
                                                 <td>ID</td>
@@ -144,7 +148,7 @@ and open the template in the editor.
                                                     <a th:href="@{/policy/} + ${as.id}"><img th:src="@{/images/edit.png}" height="24"></a>
                                                 </td>
                                                 <td class="text-center">
-                                                    <a th:href="@{/deleteemployee/} + ${as.id}"><img th:src="@{/images/delete.png}" height="24"></a>
+                                                    <a th:href="@{/deletepolicy/} + ${as.id}"><img th:src="@{/images/delete.png}" height="24"></a>
                                                 </td>
                                             </tr>
                                         </tbody>

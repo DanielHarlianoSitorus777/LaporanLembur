@@ -7,10 +7,7 @@ package com.example.LaporanLembur.controllers;
 
 import com.example.LaporanLembur.daoimpl.AdminDaoImpl;
 import com.example.LaporanLembur.daoimpl.EmployeeDaoImpl;
-import com.example.LaporanLembur.entities.Employee;
-import com.example.LaporanLembur.entities.Overtime;
-import com.example.LaporanLembur.entities.Policy;
-import com.example.LaporanLembur.entities.TempValue;
+import com.example.LaporanLembur.entities.*;
 import com.example.LaporanLembur.repositories.DepartmentRepository;
 import com.example.LaporanLembur.repositories.EmployeeRepository;
 import com.example.LaporanLembur.repositories.OvertimeRepository;
@@ -21,12 +18,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -66,25 +59,17 @@ public class maincontrollers {
     @Autowired
     EmailService emailService;
 
-    // LOGIN
-    @GetMapping("/login_error")
-    public String loginError() {
-        return "login";
-    }
-
-    @GetMapping("/login")
-    public String login() {
-        return "login";
-    }
-
     // HOME
     @GetMapping("")
     public String index(Model model) throws ParseException {
+        CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int id = user.getId();
+
         String view = null;
 
-        model.addAttribute("employee", employeeRepository.getOne(TempValue.id));
-        model.addAttribute("department", employeeRepository.getOne(TempValue.id).getDepartment().getId());
-        System.out.println(employeeRepository.getOne(TempValue.id).getDepartment().getId());
+        model.addAttribute("employee", employeeRepository.getOne(id));
+        model.addAttribute("department", employeeRepository.getOne(id).getDepartment().getId());
+        System.out.println(employeeRepository.getOne(id).getDepartment().getId());
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("dd/MM/yyy HH:mm:ss");
@@ -102,10 +87,10 @@ public class maincontrollers {
         float hourSpent = 0;
 
         try {
-            if (employeeDaoImpl.getCurrentMonthTotalOvertime(employeeRepository.getOne(TempValue.id)) == null) {
+            if (employeeDaoImpl.getCurrentMonthTotalOvertime(employeeRepository.getOne(id)) == null) {
                 hourSpent = 0;
-            } else if (employeeDaoImpl.getCurrentMonthTotalOvertime(employeeRepository.getOne(TempValue.id)) != null) {
-                hourSpent = Float.parseFloat(employeeDaoImpl.getCurrentMonthTotalOvertime(employeeRepository.getOne(TempValue.id)).get(0));
+            } else if (employeeDaoImpl.getCurrentMonthTotalOvertime(employeeRepository.getOne(id)) != null) {
+                hourSpent = Float.parseFloat(employeeDaoImpl.getCurrentMonthTotalOvertime(employeeRepository.getOne(id)).get(0));
             }
         } catch (Exception e) {
             System.out.println("Spent Hours Exception : " + e);
@@ -116,36 +101,36 @@ public class maincontrollers {
             model.addAttribute("overtime", overtime);
         }
         model.addAttribute("overtime", overtime - hourSpent);
-        
+
         int totalReport = 0;
-        
+
         try {
-            if (employeeDaoImpl.getCurrentMonthTotalReport(employeeRepository.getOne(TempValue.id)) == null) {
+            if (employeeDaoImpl.getCurrentMonthTotalReport(employeeRepository.getOne(id)) == null) {
                 totalReport = 0;
-            } else if (employeeDaoImpl.getCurrentMonthTotalReport(employeeRepository.getOne(TempValue.id)) != null) {
-                totalReport = Integer.parseInt(employeeDaoImpl.getCurrentMonthTotalReport(employeeRepository.getOne(TempValue.id)));
+            } else if (employeeDaoImpl.getCurrentMonthTotalReport(employeeRepository.getOne(id)) != null) {
+                totalReport = Integer.parseInt(employeeDaoImpl.getCurrentMonthTotalReport(employeeRepository.getOne(id)));
             }
         } catch (Exception e) {
             System.out.println("Total Report Exception : " + e);
         }
-        
+
         model.addAttribute("totalreport", totalReport);
 
-        if (null != TempValue.role) {
-            switch (TempValue.role) {
+        if (null != employeeRepository.getOne(id).getTitle().getTitle()) {
+            switch (employeeRepository.getOne(id).getTitle().getTitle()) {
                 case "Manager":
-                    if (employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(TempValue.id)).size() > 0 && employeeDaoImpl.getDepartmentLatestReport(employeeRepository.getOne(TempValue.id).getDepartment()).size() > 0) {
-                        model.addAttribute("latestPersonalReport", employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(TempValue.id)).get(0));
-                        model.addAttribute("departmentLatestReport", employeeDaoImpl.getDepartmentLatestReport(employeeRepository.getOne(TempValue.id).getDepartment()).get(0));
+                    if (employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(id)).size() > 0 && employeeDaoImpl.getDepartmentLatestReport(employeeRepository.getOne(id).getDepartment()).size() > 0) {
+                        model.addAttribute("latestPersonalReport", employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(id)).get(0));
+                        model.addAttribute("departmentLatestReport", employeeDaoImpl.getDepartmentLatestReport(employeeRepository.getOne(id).getDepartment()).get(0));
                     }
                     return view = "dashboardmanager";
                 case "Karyawan":
-                    if (employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(TempValue.id)).size() > 0) {
-                        model.addAttribute("latestPersonalReport", employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(TempValue.id)).get(0));
+                    if (employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(id)).size() > 0) {
+                        model.addAttribute("latestPersonalReport", employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(id)).get(0));
                     } else {
                         model.addAttribute("latestPersonalReport", new Overtime());
                     }
-                    System.out.println("Size : " + employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(TempValue.id)).size());
+                    System.out.println("Size : " + employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(id)).size());
                     return view = "dashboardemployee";
                 case "Admin":
                     return view = "dashboardadmin";
@@ -158,11 +143,14 @@ public class maincontrollers {
 
     @GetMapping("/home")
     public String home(Model model) {
+        CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int id = user.getId();
+
         String view = null;
 
-        model.addAttribute("employee", employeeRepository.getOne(TempValue.id));
-        model.addAttribute("department", employeeRepository.getOne(TempValue.id).getDepartment().getId());
-        System.out.println(employeeRepository.getOne(TempValue.id).getDepartment().getId());
+        model.addAttribute("employee", employeeRepository.getOne(id));
+        model.addAttribute("department", employeeRepository.getOne(id).getDepartment().getId());
+        System.out.println(employeeRepository.getOne(id).getDepartment().getId());
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("dd/MM/yyy HH:mm:ss");
@@ -177,10 +165,10 @@ public class maincontrollers {
         float hourSpent = 0;
 
         try {
-            if (employeeDaoImpl.getCurrentMonthTotalOvertime(employeeRepository.getOne(TempValue.id)) == null) {
+            if (employeeDaoImpl.getCurrentMonthTotalOvertime(employeeRepository.getOne(id)) == null) {
                 hourSpent = 0;
-            } else if (employeeDaoImpl.getCurrentMonthTotalOvertime(employeeRepository.getOne(TempValue.id)) != null) {
-                hourSpent = Float.parseFloat(employeeDaoImpl.getCurrentMonthTotalOvertime(employeeRepository.getOne(TempValue.id)).get(0));
+            } else if (employeeDaoImpl.getCurrentMonthTotalOvertime(employeeRepository.getOne(id)) != null) {
+                hourSpent = Float.parseFloat(employeeDaoImpl.getCurrentMonthTotalOvertime(employeeRepository.getOne(id)).get(0));
             }
         } catch (Exception e) {
             System.out.println("Spent Hours Exception : " + e);
@@ -191,36 +179,36 @@ public class maincontrollers {
             model.addAttribute("overtime", overtime);
         }
         model.addAttribute("overtime", overtime - hourSpent);
-        
+
         int totalReport = 0;
-        
+
         try {
-            if (employeeDaoImpl.getCurrentMonthTotalReport(employeeRepository.getOne(TempValue.id)) == null) {
+            if (employeeDaoImpl.getCurrentMonthTotalReport(employeeRepository.getOne(id)) == null) {
                 totalReport = 0;
-            } else if (employeeDaoImpl.getCurrentMonthTotalReport(employeeRepository.getOne(TempValue.id)) != null) {
-                totalReport = Integer.parseInt(employeeDaoImpl.getCurrentMonthTotalReport(employeeRepository.getOne(TempValue.id)));
+            } else if (employeeDaoImpl.getCurrentMonthTotalReport(employeeRepository.getOne(id)) != null) {
+                totalReport = Integer.parseInt(employeeDaoImpl.getCurrentMonthTotalReport(employeeRepository.getOne(id)));
             }
         } catch (Exception e) {
             System.out.println("Total Report Exception : " + e);
         }
-        
+
         model.addAttribute("totalreport", totalReport);
 
-        if (null != TempValue.role) {
-            switch (TempValue.role) {
+        if (null != employeeRepository.getOne(id).getTitle().getTitle()) {
+            switch (employeeRepository.getOne(id).getTitle().getTitle()) {
                 case "Manager":
-                    if (employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(TempValue.id)).size() > 0 && employeeDaoImpl.getDepartmentLatestReport(employeeRepository.getOne(TempValue.id).getDepartment()).size() > 0) {
-                        model.addAttribute("latestPersonalReport", employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(TempValue.id)).get(0));
-                        model.addAttribute("departmentLatestReport", employeeDaoImpl.getDepartmentLatestReport(employeeRepository.getOne(TempValue.id).getDepartment()).get(0));
+                    if (employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(id)).size() > 0 && employeeDaoImpl.getDepartmentLatestReport(employeeRepository.getOne(id).getDepartment()).size() > 0) {
+                        model.addAttribute("latestPersonalReport", employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(id)).get(0));
+                        model.addAttribute("departmentLatestReport", employeeDaoImpl.getDepartmentLatestReport(employeeRepository.getOne(id).getDepartment()).get(0));
                     }
                     return view = "dashboardmanager";
                 case "Karyawan":
-                    if (employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(TempValue.id)).size() > 0) {
-                        model.addAttribute("latestPersonalReport", employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(TempValue.id)).get(0));
+                    if (employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(id)).size() > 0) {
+                        model.addAttribute("latestPersonalReport", employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(id)).get(0));
                     } else {
                         model.addAttribute("latestPersonalReport", new Overtime());
                     }
-                    System.out.println("Size : " + employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(TempValue.id)).size());
+                    System.out.println("Size : " + employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(id)).size());
                     return view = "dashboardemployee";
                 case "Admin":
                     return view = "dashboardadmin";
@@ -233,33 +221,47 @@ public class maincontrollers {
 
     @GetMapping("/personal")
     public String personalReport(Model model) {
-        model.addAttribute("history", employeeDaoImpl.getReportByEmployee(employeeRepository.getOne(TempValue.id)));
-        model.addAttribute("report", employeeRepository.getOne(TempValue.id));
-        System.out.println("Id Personal : " + employeeRepository.getOne(TempValue.id).getTitle());
+        CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int id = user.getId();
 
-        System.out.println("Personal : " + employeeDaoImpl.getReportByEmployee(employeeRepository.getOne(TempValue.id)));
+        model.addAttribute("history", employeeDaoImpl.getReportByEmployee(employeeRepository.getOne(id)));
+        model.addAttribute("report", employeeRepository.getOne(id));
+        System.out.println("Id Personal : " + employeeRepository.getOne(id).getTitle());
+
+        System.out.println("Personal : " + employeeDaoImpl.getReportByEmployee(employeeRepository.getOne(id)));
         return "reportpribadi";
     }
 
     @GetMapping("/personal/{id}")
     public String personalReportDetail(Model model, @PathVariable("id") int id) {
-        model.addAttribute("history", employeeDaoImpl.getReportByEmployee(employeeRepository.getOne(TempValue.id)));
+        CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int uid = user.getId();
+        
+        model.addAttribute("history", employeeDaoImpl.getReportByEmployee(employeeRepository.getOne(uid)));
         model.addAttribute("report", overtimeRepository.getOne(id));
-        model.addAttribute("user", employeeRepository.getOne(TempValue.id));
+        model.addAttribute("user", employeeRepository.getOne(uid));
         return "reportpribadimodal";
     }
 
     @GetMapping("/department")
     public String departmentReport(Model model) {
-        model.addAttribute("history", employeeDaoImpl.getReportbyDepartment(departmentRepository.getOne(TempValue.deptId)));
-        System.out.println("Dept : " + employeeDaoImpl.getReportbyDepartment(departmentRepository.getOne(TempValue.deptId)));
+        
+        CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int uid = user.getId();
+        
+        model.addAttribute("history", employeeDaoImpl.getReportbyDepartment(departmentRepository.getOne(employeeRepository.getOne(uid).getDepartment().getId())));
+        System.out.println("Dept : " + employeeDaoImpl.getReportbyDepartment(departmentRepository.getOne(employeeRepository.getOne(uid).getDepartment().getId())));
 
         return "reportdivisi";
     }
 
     @GetMapping("/department/{id}")
     public String departmentReportDetail(Model model, @PathVariable("id") int id) {
-        model.addAttribute("history", employeeDaoImpl.getReportbyDepartment(departmentRepository.getOne(TempValue.deptId)));
+        
+        CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int uid = user.getId();
+        
+        model.addAttribute("history", employeeDaoImpl.getReportbyDepartment(departmentRepository.getOne(employeeRepository.getOne(uid).getDepartment().getId())));
         model.addAttribute("report", overtimeRepository.getOne(id));
 
         SimpleDateFormat timeFormat = new SimpleDateFormat("dd/MM/yyy HH:mm:ss");
@@ -307,21 +309,14 @@ public class maincontrollers {
         return "kebijakan";
     }
 
-    // LOGOUT
-    @GetMapping("/logout")
-    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null) {
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-        }
-        return "redirect:/";
-    }
-
     // POST
     @PostMapping("/createreport")
     public String createReport(Overtime overtime) throws MessagingException {
+        CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int id = user.getId();
+
         overtimeRepository.save(overtime);
-        emailService.sendManagerNotif(employeeRepository.getOne(TempValue.id).getManager().getEmail(), employeeRepository.getOne(TempValue.id).getName());
+        emailService.sendManagerNotif(employeeRepository.getOne(id).getManager().getEmail(), employeeRepository.getOne(id).getName());
         return "redirect:/home/?result=update_success";
     }
 
@@ -350,11 +345,33 @@ public class maincontrollers {
         return "redirect:/employee/?result=update_success";
     }
 
+    @PostMapping("/savepolicy")
+    public String savePolicy(Policy policy) {
+        adminDaoImpl.savePolicy(policy);
+        return "redirect:/policy/?result=update_success";
+    }
+
+    @PostMapping("/forgotpassword/sendemail")
+    public String sendForgotPassword(EmailInput email, Model model) throws MessagingException {
+        employeeDaoImpl.getEmployeeByEmail(email.getEmail()).getEmail();
+        emailService.sendForgotPassNotif(employeeDaoImpl.getEmployeeByEmail(email.getEmail()).getEmail(), employeeDaoImpl.getEmployeeByEmail(email.getEmail()).getPassword());
+        System.out.println("Forgot Pass : " + employeeDaoImpl.getEmployeeByEmail(email.getEmail()).getEmail() + employeeDaoImpl.getEmployeeByEmail(email.getEmail()).getPassword());
+        return "forgotpassword";
+    }
+
     // DELETE
     @RequestMapping(value = "/deleteemployee/{id}", method = {RequestMethod.GET, RequestMethod.POST})
     public String delete(@PathVariable("id") int id, Model model) {
         model.addAttribute("employee", adminDaoImpl.getAllEmployee());
         employeeRepository.deleteById(id);
         return "redirect:/employee/?result=data_deleted";
+    }
+
+    @RequestMapping(value = "/deletepolicy/{id}", method = {RequestMethod.GET, RequestMethod.POST})
+    public String deletePolicy(@PathVariable("id") int id, Model model) {
+        model.addAttribute("input", policyRepository.getOne(id));
+        model.addAttribute("policy", policyRepository.findAll());
+        policyRepository.deleteById(id);
+        return "redirect:/policy/?result=data_deleted";
     }
 }

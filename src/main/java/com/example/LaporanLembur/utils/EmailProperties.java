@@ -22,8 +22,8 @@ public class EmailProperties {
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
 
-        mailSender.setUsername(""); // Diisi Email Kalian Masing-Masing
-        mailSender.setPassword(""); // Diisi Password Kalian Masing-Masing
+        mailSender.setUsername("ardianpramudya81@gmail.com"); // Diisi Email Kalian Masing-Masing
+        mailSender.setPassword("alphitardian0306"); // Diisi Password Kalian Masing-Masing
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");

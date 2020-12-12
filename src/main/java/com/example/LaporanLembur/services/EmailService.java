@@ -92,4 +92,23 @@ public class EmailService {
         javaMailSender.send(msg);
     }
     
+    public void sendForgotPassNotif(String destination, String pass) throws MessagingException {
+        MimeMessage msg = javaMailSender.createMimeMessage();
+
+        MimeMessageHelper helper = new MimeMessageHelper(msg, true);
+        
+        helper.setTo(destination);
+
+        helper.setSubject("This is your Password! Don't Tell Anyone!");
+
+        helper.setText("<h4>Top Secret</h4>"
+                + "<div>"
+                + "email : " + destination + "</div><br><div>"
+                + "password : " + pass
+                + "</div>", 
+                true);
+
+        javaMailSender.send(msg);
+    }
+    
 }

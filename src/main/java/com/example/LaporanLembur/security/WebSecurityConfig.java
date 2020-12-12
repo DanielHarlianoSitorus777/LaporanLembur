@@ -41,7 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()                            
-                .antMatchers("/login").anonymous()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/forgotpassword/**").permitAll()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/images/**").permitAll()
@@ -58,6 +59,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/"); 
+                .logoutSuccessUrl("/")
+                .and()
+                .exceptionHandling(); 
     }
 }

@@ -30,6 +30,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     boolean shouldAuthenticateAgainstThirdPartySystem = true;
 
+    boolean enabled = true;
+    boolean accountNonExpired = true;
+    boolean credentialsNonExpired = true;
+    boolean accountNonLocked = true;
+
     //LoginOutput loginOutput;
     Login loginInput = new Login();
 
@@ -56,7 +61,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         int employeeId = loginInput.getEmployee().getId();
         int departmentId = loginInput.getEmployee().getDepartment().getId();
         Title title;
-        
+
         System.out.println("Id : " + id);
 
         try {
@@ -66,13 +71,24 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         } catch (Exception e) {
             System.out.println("Exception Auth : " + e);
         }
-        
+
         System.out.println("Title : " + role);
 
         if (loginInput.getEmail().equals(loginService.getEmployeeByEmail(loginInput.getEmail()).getEmail()) && loginInput.getPassword().equals(loginService.getEmployeeByEmail(loginInput.getEmail()).getPassword())) {
             final List<GrantedAuthority> grantedAuths = new ArrayList<>();
             grantedAuths.add(new SimpleGrantedAuthority(role)); // Get Roles
-            final UserDetails principal = new User(name, password, grantedAuths); // Membuat user
+            
+            final CustomUser principal = new CustomUser(
+                    name,
+                    password,
+                    enabled,
+                    accountNonExpired,
+                    credentialsNonExpired,
+                    accountNonLocked,
+                    grantedAuths,
+                    loginInput.getEmployee().getId()
+            );
+            
             final Authentication auth = new UsernamePasswordAuthenticationToken(principal, password, grantedAuths);
             TempValue.role = role;
             TempValue.id = employeeId;
