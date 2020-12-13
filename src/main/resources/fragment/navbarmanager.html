@@ -1,4 +1,4 @@
-<div th:fragment="navbarmanager">
+<div th:fragment="navbarmanager(activeHome, activePersonal, activeDept)">
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow">
         <a class="navbar-brand" href="#">
             <img th:src="@{/images/KapitaApp-navbar.png}" height="55" />
@@ -16,17 +16,40 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/home}"
-                       >Home <span class="sr-only">(current)</span></a
-                    >
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/personal}">Riwayat</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/department}">Divisi</a>
-                </li>
+                <div th:if="${activeHome} == true">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/home}"
+                           >Home <span class="sr-only">(current)</span></a
+                        >
+                    </li>
+                </div>
+                <div th:unless="${activeHome} == true">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/home}"
+                           >Home <span class="sr-only">(current)</span></a
+                        >
+                    </li>
+                </div>
+                <div th:if="${activePersonal} == true">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/personal}">Personal Report</a>
+                    </li>
+                </div>
+                <div th:unless="${activePersonal} == true">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/personal}">Personal Report</a>
+                    </li>
+                </div>
+                <div th:if="${activeDept} == true">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/department}">Department Report</a>
+                    </li>
+                </div>
+                <div th:unless="${activeDept} == true">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/department}">Department Report</a>
+                    </li>
+                </div>
             </ul>
             <a th:href="@{/logout}" class="text-danger">Logout</a>
         </div>

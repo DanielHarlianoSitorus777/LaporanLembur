@@ -3,7 +3,6 @@
 <html>
     <head>
         <title>Dashboard</title>
-        <link rel="stylesheet" type="text/css" th:href="@{/css/css_table.css}" />
         <link
             th:href="@{https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap}"
             rel="stylesheet"
@@ -22,91 +21,91 @@
 
         <!-- Custom styles for this template-->
         <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/css_table.css}" />
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
 
     <!-- Navbar -->
     <body>
-        <div th:insert="../fragment/navbarmanager::navbarmanager"></div>
+        <div th:insert="../fragment/navbarmanager::navbarmanager(true, false, false)"></div>
 
         <div th:insert="../fragment/formmodal::lembur-form"></div>
 
         <!--container 1-->
         <div class="container">
-            <div class="font-weight-bold mb-5 h3 text-dark">Report Summary</div>
+            <h3 class="text-center mb-5 font-weight-bolder text-light bg-primary p-3 card shadow">Report Summary</h3>
             <div class="row">
                 <div class="col-8">
                     <div class="card shadow py-2 mb-3">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <h5 class="text-light bg-primary p-2 card font-weight-bold mb-4">Personal Report</h5>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="card border-left-primary shadow py-2 mb-3" >
-                                                    <div class="card-body">
-                                                        <div class="row no-gutters align-items-center">
-                                                            <div class="col mr-2">
-                                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                                    Jam Lembur Tersisa</div>
-                                                                <div class="h5 mb-0 font-weight-bold text-gray-800"><span th:text="${overtime}"></span> JAM</div>
-                                                            </div>
-                                                            <div class="col-auto">
-                                                                <i class="fas fa-clock fa-2x text-gray-300"></i>
-                                                            </div>
+                                    <h5 class="text-light bg-primary p-2 card font-weight-bold mb-4 pl-3">Personal Report</h5>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="card border-left-primary shadow py-2 mb-3" >
+                                                <div class="card-body">
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col mr-2">
+                                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                                Overtime Remaining</div>
+                                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><span th:text="${overtime}"></span> HOURS</div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="card border-left-primary shadow py-2 mb-3" >
-                                                    <div class="card-body">
-                                                        <div class="row no-gutters align-items-center">
-                                                            <div class="col mr-2">
-                                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                                    Jumlah Lembur Bulan Ini</div>
-                                                                <div class="h5 mb-0 font-weight-bold text-gray-800"><span th:text="${totalreport}"></span> LAPORAN</div>
-                                                            </div>
-                                                            <div class="col-auto">
-                                                                <i class="fas fa-clipboard fa-2x text-gray-300"></i>
-                                                            </div>
+                                                        <div class="col-auto">
+                                                            <i class="fas fa-clock fa-2x text-gray-300"></i>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card border-left-primary shadow py-2 mb-3" >
-                                            <div class="card-body">
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col mr-2">
-                                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                            Laporan Pribadi Terakhir</div>
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                            <table>
-                                                                <tr>
-                                                                    <td><b><span class="mr-5">Tanggal</span></td></b>
-                                                                    <td><div>: <span th:text="${latestPersonalReport.submitDate}" class="ml-1"></span></div></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><b> Start </b></td>
-                                                                    <td><div>: <span th:text="${latestPersonalReport.startTime}" class="ml-1"></span></div></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><b>End</td></b>
-                                                                    <td><div>: <span th:text="${latestPersonalReport.endTime}" class="ml-1"></span></div></td>
-                                                                </tr><br>
-                                                                <tr>
-                                                                    <td><b>Note</td></b>
-                                                                    <td><div>: <span th:text="${latestPersonalReport.description}" class="ml-1"></span></div></td>
-                                                                </tr>
-                                                            </table>
+                                        <div class="col">
+                                            <div class="card border-left-primary shadow py-2 mb-3" >
+                                                <div class="card-body">
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col mr-2">
+                                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                                Report Submited in this Month</div>
+                                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><span th:text="${totalreport}"></span> REPORT</div>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <i class="fas fa-clipboard fa-2x text-gray-300"></i>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </h5>
+                                    </div>
+                                    <div class="card border-left-primary shadow py-2 mb-3" >
+                                        <div class="card-body">
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col mr-2">
+                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                        Latest Personal Report</div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                        <table>
+                                                            <tr>
+                                                                <td><b><span class="mr-5">Date</span></td></b>
+                                                                <td><div>: <th:block th:with="sdf = ${new java.text.SimpleDateFormat('yyyy-MM-dd')}">
+                                                                            <span class="ml-1" th:text="${#dates.format(sdf.parse(latestPersonalReport.submitDate), 'dd MMMM yyyy')}"></span>
+                                                                        </th:block>
+                                                                        <!--<span th:text="${latestPersonalReport.submitDate}" class="ml-1"></span>-->
+                                                                    </div></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><b> Time </b></td>
+                                                                <td><div>: <span th:text="${latestPersonalReport.startTime}" class="ml-1"></span> to <span th:text="${latestPersonalReport.endTime}" ></span></div></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><b>Note</td></b>
+                                                                <td><div>: <span th:text="${latestPersonalReport.description}" class="ml-1"></span></div></td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -115,86 +114,28 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <h5 class="text-light bg-primary p-2 card font-weight-bold mb-4">Latest Department Report</h5>
-                                    <div class="card border-left-primary shadow py-2 mb-3" >
+                                    <h5 class="text-light bg-primary p-2 card font-weight-bold mb-4 pl-3">Latest Department Report</h5>
+                                    <div class="card border-left-primary shadow py-2 mb-3" th:each="report: ${departmentLatestReport}">
                                         <div class="card-body">
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col mr-2">
-                                                    <div class="font-weight-bold text-dark text-uppercase mb-1 bg-gray-300 card">
-                                                        <span class="p-2" th:text="${departmentLatestReport.employee.name}" ></span></div>
+                                                    <div class="font-weight-bold text-dark text-uppercase mb-3 bg-gray-300 card">
+                                                        <span class="p-2" th:text="${report.employee.name}" ></span></div>
                                                     <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                         <table>
                                                             <tr>
-                                                                <td><b><span class="mr-5">Tanggal</span></td></b>
-                                                                <td><div>: <span th:text="${departmentLatestReport.submitDate}" class="ml-1"></span></div></td>
+                                                                <td><b><span class="mr-5">Date</span></td></b>
+                                                                <td><div>: <th:block th:with="sdf = ${new java.text.SimpleDateFormat('yyyy-MM-dd')}">
+                                                                            <span class="ml-1" th:text="${#dates.format(sdf.parse(report.submitDate), 'dd MMMM yyyy')}"></span>
+                                                                        </th:block></div></td>
                                                             </tr>
                                                             <tr>
                                                                 <td><b> Time </b></td>
-                                                                <td><div>: <span th:text="${departmentLatestReport.startTime}" class="ml-1"></span> to <span th:text="${departmentLatestReport.endTime}" class="ml-1"></span></div></td>
+                                                                <td><div>: <span th:text="${report.startTime}" class="ml-1"></span> to <span th:text="${report.endTime}"></span></div></td>
                                                             </tr>
                                                             <tr>
                                                                 <td><b>Note</td></b>
-                                                                <td><div>: <span th:text="${departmentLatestReport.description}" class="ml-1"></span></div></td>
-                                                            </tr>   
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card border-left-primary shadow py-2 mb-3" >
-                                        <div class="card-body">
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col mr-2">
-                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                        Laporan Department Terakhir</div>
-                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                        <table>
-                                                            <tr>
-                                                                <td><b><span>Nama</span></td></b>
-                                                                <td><div>: Daniel</div></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><b><span class="mr-5">Tanggal</span></td></b>
-                                                                <td><div>: <span th:text="${departmentLatestReport.submitDate}" class="ml-1"></span></div></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><b> Time </b></td>
-                                                                <td><div>: <span th:text="${departmentLatestReport.startTime}" class="ml-1"></span> to <span th:text="${departmentLatestReport.endTime}" class="ml-1"></span></div></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><b>Note</td></b>
-                                                                <td><div>: <span th:text="${departmentLatestReport.description}" class="ml-1"></span></div></td>
-                                                            </tr>   
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card border-left-primary shadow py-2 mb-3" >
-                                        <div class="card-body">
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col mr-2">
-                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                        Laporan Department Terakhir</div>
-                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                        <table>
-                                                            <tr>
-                                                                <td><b><span>Nama</span></td></b>
-                                                                <td><div>: Ardian</div></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><b><span class="mr-5">Tanggal</span></td></b>
-                                                                <td><div>: <span th:text="${departmentLatestReport.submitDate}" class="ml-1"></span></div></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><b> Time </b></td>
-                                                                <td><div>: <span th:text="${departmentLatestReport.startTime}" class="ml-1"></span> to <span th:text="${departmentLatestReport.endTime}" class="ml-1"></span></div></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td><b>Note</td></b>
-                                                                <td><div>: <span th:text="${departmentLatestReport.description}" class="ml-1"></span></div></td>
+                                                                <td><div>: <span th:text="${report.description}" class="ml-1"></span></div></td>
                                                             </tr>   
                                                         </table>
                                                     </div>
@@ -221,7 +162,7 @@
                                         <h8 style="font-size: 14px;">Department <span th:text="${employee.department.department}"></span></h8><br>
                                         <h8 style="font-size: 14px;" th:text="${employee.title.title}"></h8><br><br>
                                         <div th:if="${overtime <= 0}">
-                                            <span data-toggle="tooltip" data-placement="top" title="Jam Lembur Sudah Habis">
+                                            <span data-toggle="tooltip" data-placement="top" title="Run Out Overtime Hours">
                                                 <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#OvertimeForm"  disabled>
                                                     New Report
                                                 </button>

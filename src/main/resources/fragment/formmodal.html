@@ -14,24 +14,24 @@
                     <form th:object="${form}" th:action="@{/createreport}" method="POST">
                         <div class="row text-left">
                             <div class="col-md-4">
-                                <label for="submitDate">Tanggal</label><br>
-                                <input style="width: 100%" type="date" id="submitDate" th:value="${{date}}" name="submitDate"> 
+                                <label for="submitDate">Date</label><br>
+                                <input class="form-control" style="width: 100%" type="date" id="submitDate" th:value="${{date}}" name="submitDate"> 
                             </div>
                             <div class="col-md-4">
                                 <label for="startTime">Start Time</label><br>
-                                <input style="width: 100%" type="text" th:value="${{time}}" name="startTime" id="startTime" min="18:00" max="22:00" required>
+                                <input class="timepicker form-control" style="width: 100%" type="text" name="tempStartTime" id="startTime" min="18:00" max="22:00" required>
                             </div>
                             <div class="col-md-4">
                                 <label for="endTime">End Time</label><br>
-                                <input style="width: 100%" type="text" id="endTime" th:field="*{endTime}" name="endTime" min="20:00" max="23:59" placeholder="dd/MM/yyy HH:mm:ss" required>
+                                <input class="timepicker form-control" style="width: 100%" type="text" id="endTime"  name="tempEndTime" min="20:00" max="23:59" required>
                             </div>
                             <input style="width: 100%" type="hidden" th:value="${employee.id}" name="employee">
                             <input style="width: 100%" type="hidden" th:value="${department}" name="department">
                         </div>
                         <div class="row text-left mt-3">
                             <div class="col">
-                                <label for="description">Deskripsi</label><br>
-                                <textarea style="width: 100%" id="description" th:field="*{description}" rows="10" cols="30"></textarea>
+                                <label for="description">Description</label><br>
+                                <textarea class="form-control" style="width: 100%" id="description" th:field="*{description}" rows="10" cols="30"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -43,72 +43,3 @@
         </div>
     </div>
 </div>
-<!--
-<html>
-<head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE-edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-        <style type="text/css">
-                html, body {
-                        background-color: #fff;
-                        font-family: "Source Sans Pro", sans-serif;
-                        overflow-x: hidden !important;
-                        margin: 0px !important;
-                        padding: 0px !important;
-                }
-                * {
-                        text-decoration: none !important;
-                }
-                .box{
-                        width: 600px;
-                        height: 400px;
-                        box-shadow: 0 10px 10px rgba(0,0,0,0.10);
-                        padding: 50px;
-                        margin: 10px;
-                        position: absolute;
-                        top:0;
-                        bottom: 0;
-                        left: 0;
-                        right: 0;
-                        margin: auto;
-                }
-                h1{
-                        text-align: center;
-                }
-                .submitBtn {
-                        width: 600px;
-                        background-color: LawnGreen;
-                        color: white;
-                        border: none;
-                        padding: 10px 30px;
-                        text-align: center;
-                        text-decoration: none;
-                        border-radius: 12px;
-                        font-weight: bold;
-                }
-                textarea {
-                        resize: none;
-                        width: 595px;
-                }
-        </style>
-        <title>Overtime Form</title>
-</head>
-<body>
-        <div class="box">
-                <h1>Overtime Form</h1>
-                <label for="tanggal">Tanggal</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-                <label for="start">Start Time</label>&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;
-                <label for="end">End Time</label><br>
-                <input type="date" id="tanggal" value="2020-11-23" min="2020-11-23" max="2020-11-30" required> &emsp;&emsp;&emsp;
-                <input type="time" id="start" min="18:00" max="22:00" required> &emsp;&emsp;&emsp;
-                <input type="time" id="endt" min="20:00" max="23:00" required><br><br>
-                <label for="deskripsi">Deskripsi</label><br>
-                <textarea id="deskripsi" rows="10" cols="30">
-                </textarea><br><br>
-                <center><input class="submitBtn" type="submit" id="submit" value="Submit"></center>
-        </div>
-</body>
-</html>-->

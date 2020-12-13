@@ -7,7 +7,6 @@ and open the template in the editor.
 <html>
     <head>
         <title>404</title>
-        <link rel="stylesheet" type="text/css" th:href="@{/css/css_table.css}" />
         <link
             href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap"
             rel="stylesheet"
@@ -33,13 +32,14 @@ and open the template in the editor.
 
         <!-- Custom styles for this page -->
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/css_table.css}" />
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div th:if="${report.title.title == 'Manager'}" th:insert="../fragment/navbarmanager::navbarmanager"></div>
+        <div th:if="${report.title.title == 'Manager'}" th:insert="../fragment/navbarmanager::navbarmanager(true, false, false)"></div>
 
-        <div th:unless="${report.title.title == 'Manager'}" th:insert="../fragment/navbaremployee::navbaremployee"></div>
+        <div th:if="${report.title.title == 'Karyawan'}" th:insert="../fragment/navbaremployee::navbaremployee(true, false)"></div>
 
         <div class="text-center mt-5">
             <div class="error mx-auto" data-text="404">404</div>

@@ -11,7 +11,6 @@ and open the template in the editor.
         <meta http-equiv="X-UA-Compatible" content="IE-edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Riwayat</title>
-        <link rel="stylesheet" type="text/css" th:href="@{/css/css_table.css}" />
         <link
             href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap"
             rel="stylesheet"
@@ -37,17 +36,18 @@ and open the template in the editor.
 
         <!-- Custom styles for this page -->
         <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/css_table.css}" />
     </head>
     <body>
 
-        <div th:if="${user.title.title == 'Manager'}" th:insert="../fragment/navbarmanager::navbarmanager"></div>
+        <div th:if="${user.title.title == 'Manager'}" th:insert="../fragment/navbarmanager::navbarmanager(false,true,false)"></div>
 
-        <div th:unless="${user.title.title == 'Manager'}" th:insert="../fragment/navbaremployee::navbaremployee"></div>
+        <div th:unless="${user.title.title == 'Manager'}" th:insert="../fragment/navbaremployee::navbaremployee(false,true)"></div>
 
         <div th:insert="../fragment/formdetail::lembur-detail"></div>
-        
+
         <div class="container mt-3">
-            <h3 class="text-center mb-5 font-weight-bolder text-dark">Report History</h3>
+            <h3 class="text-center mb-5 font-weight-bolder text-light bg-primary p-3 card shadow">Report History</h3>
             <div class="table" border="1">
                 <div class="card shadow mb-3">
                     <div class="card-body">
@@ -56,22 +56,26 @@ and open the template in the editor.
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Status Persetujuan</th>
-                                        <th>Tanggal</th>
+                                        <th>Status </th>
+                                        <th>Date</th>
                                         <th>Manager Note</th>
-                                        <th></th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr th:each="as : ${history}">
                                         <td th:text="${as.id}"></td>
                                         <td th:text="${as.status}"></td>
-                                        <td th:text="${as.submitDate}"></td>
-                                        <td th:text="${as.managerNotes}"></td>
                                         <td>
-                                            <a th:href="@{/personal/} + ${as.id}" type="button" class="btn btn-info btn-lg"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
-                                        </td>
-                                    </tr>
+                                <th:block th:with="sdf = ${new java.text.SimpleDateFormat('yyyy-MM-dd')}">
+                                    <span class="ml-1" th:text="${#dates.format(sdf.parse(as.submitDate), 'dd-MM-yyyy')}"></span>
+                                </th:block>
+                                </td>
+                                <td th:text="${as.managerNotes}"></td>
+                                <td class="text-center">
+                                    <a th:href="@{/personal/} + ${as.id}" type="button"><i class="fa fa-info-circle fa-2x" aria-hidden="true"></i></a>
+                                </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -103,7 +107,14 @@ and open the template in the editor.
         <script th:src="@{/js/custom.js}"></script>
         <script>
             $(document).ready(function () {
-                $('#tb').DataTable();
+                $('#tb').DataTable({
+                    language: {
+                        search: "",
+                    },
+                    columnDefs: [
+                        {orderable: false, targets: 4}
+                    ]
+                });
                 $('#OvertimeDetail').modal('show');
             });
         </script>

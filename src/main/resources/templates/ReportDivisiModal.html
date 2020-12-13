@@ -11,7 +11,6 @@ and open the template in the editor.
         <meta http-equiv="X-UA-Compatible" content="IE-edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Divisi</title>
-        <link rel="stylesheet" type="text/css" th:href="@{/css/css_table.css}" />
         <link
             href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap"
             rel="stylesheet"
@@ -37,19 +36,16 @@ and open the template in the editor.
 
         <!-- Custom styles for this page -->
         <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-        <style>
-            body{
-                background-color: #b0d9ff;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/css_table.css}" />
+
     </head>
     <body>
-        <div th:insert="../fragment/navbarmanager::navbarmanager"></div>
-        
+        <div th:insert="../fragment/navbarmanager::navbarmanager(false, false, true)"></div>
+
         <div th:insert="../fragment/formmanager::overtime-manager"></div>
 
         <div class="container mt-3">
-            <h3 class="text-center mb-5 font-weight-bolder text-dark">Report History</h3>
+            <h3 class="text-center mb-5 font-weight-bolder text-light bg-primary p-3 card shadow">Report History</h3>
             <div class="table" border="1">
                 <div class="card shadow mb-3">
                     <div class="card-body">
@@ -57,33 +53,51 @@ and open the template in the editor.
                             <table class="table table-striped" id="tb">
                                 <thead>
                                     <tr>
+                                        <th>Reorder</th>
                                         <th>NIK</th>
-                                        <th>Nama</th>
-                                        <th>Tanggal</th>
+                                        <th>Name</th>
+                                        <th>Date</th>
                                         <th>Note</th>
-                                        <th>Jumlah Jam</th>
-                                        <th>Status Persetujuan</th>
+                                        <th>Time Spent</th>
+                                        <th>Status</th>
+                                        <th class="text-center" style="width: 100px">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr th:each="as : ${history}" >
+                                        <td th:text="${as.reorder}"></td>
                                         <td th:text="${as.employee.nik}"></td>
                                         <td th:text="${as.employee.name}"></td>
-                                        <td th:text="${as.submitDate}"></td>
-                                        <td th:text="${as.managerNotes}"></td>
-                                        <td th:text="${as.totalTime}"></td>
-                                        <td class="text-center d-flex justify-content-between align-items-center">
-                                            <a th:if="${as.status == 'Reject'}" th:href="@{/confirmReport/} + ${as.id} + '/' + 'Reject'"><img th:src="@{/images/cross.png}" height="24"/></a>
-                                            <a th:if="${as.status == 'Approve'}" th:href="@{/confirmReport/} + ${as.id} + '/' + 'Approve'"><img th:src="@{/images/check.png}" height="24"/></a>
-                                            <div th:if="${as.status == 'Pending'}">
-                                                <a th:href="@{/confirmReport/} + ${as.id} + '/' + 'Reject'"><img th:src="@{/images/cross.png}" height="24"/></a>
-                                                <a th:href="@{/confirmReport/} + ${as.id} + '/' + 'Approve'"><img th:src="@{/images/check.png}" height="24"/></a>
-                                            </div>
-                                            <a th:href="@{/department/} + ${as.id}" type="button" class="btn btn-info"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
-                                        </td>
-                                    </tr>
+                                        <td>
+                                <th:block th:with="sdf = ${new java.text.SimpleDateFormat('yyyy-MM-dd')}">
+                                    <span class="ml-1" th:text="${#dates.format(sdf.parse(as.submitDate), 'dd-MM-yyyy')}"></span>
+                                </th:block>
+                                </td>
+                                <td th:text="${as.managerNotes}"></td>
+                                <td th:text="${as.totalTime}"></td>
+                                <td th:text="${as.status}"></td>
+                                <td class="text-center d-flex justify-content-between align-items-center">
+                                    <a th:if="${as.status == 'Reject' || as.status == 'Rejected'}" type="button" disabled>
+                                        <span data-toggle="tooltip" data-placement="top" title="Report Confirmed">
+                                            <i class="far fa-times-circle fa-2x"></i>                                        </span>
+                                        <span data-toggle="tooltip" data-placement="top" title="Report Confirmed">
+                                            <i class="far fa-check-circle fa-2x"></i>                                        </span>
+                                    </a>
+                                    <a th:if="${as.status == 'Approve' || as.status == 'Approved'}" type="button" disabled>
+                                        <span data-toggle="tooltip" data-placement="top" title="Report Confirmed">
+                                            <i class="far fa-times-circle fa-2x"></i>                                        </span>
+                                        <span data-toggle="tooltip" data-placement="top" title="Report Confirmed">
+                                            <i class="far fa-check-circle fa-2x"></i>                                        </span>
+                                    </a>
+                                    <div th:if="${as.status == 'Pending'}">
+                                        <a th:href="@{/confirmReport/} + ${as.id} + '/' + 'Rejected' + '/' + '2'"><i class="far fa-times-circle fa-2x text-danger"></i></a>
+                                        <a th:href="@{/confirmReport/} + ${as.id} + '/' + 'Approved' + '/' + '3'"><i class="far fa-check-circle fa-2x text-success"></i> </a>
+                                    </div>
+                                    <a th:href="@{/department/} + ${as.id}" type="button" ><i class="fa fa-info-circle fa-2x" aria-hidden="true" ></i></a>
+                                </td>
+                                </tr>
                                 </tbody>
-                            </table>
+                            </table>                       
                         </div>
                     </div>
                 </div>
@@ -113,7 +127,15 @@ and open the template in the editor.
         <script th:src="@{/js/custom.js}"></script>
         <script>
             $(document).ready(function () {
-                $('#tb').DataTable();
+                $('#tb').DataTable({
+                    language: {
+                        search: "",
+                    },
+                    columnDefs: [
+                        {orderable: false, targets: 7},
+                        {targets: 0, visible: false}
+                    ]
+                });
                 $('#OvertimeManager').modal('show');
             });
         </script>

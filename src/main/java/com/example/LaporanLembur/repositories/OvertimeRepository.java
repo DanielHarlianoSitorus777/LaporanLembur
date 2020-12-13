@@ -34,8 +34,8 @@ public interface OvertimeRepository extends JpaRepository<Overtime, Integer> {
 
     @Transactional
     @Modifying
-    @Query("UPDATE Overtime o SET o.status = :status WHERE o.id = :id")
-    void confirmReport(@Param("id") int id, @Param("status") String status);
+    @Query("UPDATE Overtime o SET o.status = :status, o.reorder = :reorder WHERE o.id = :id")
+    void confirmReport(@Param("id") int id, @Param("status") String status, @Param("reorder") int reorder);
     
     @Transactional
     @Modifying
@@ -47,4 +47,9 @@ public interface OvertimeRepository extends JpaRepository<Overtime, Integer> {
     
     @Query("SELECT COUNT(o.id) FROM Overtime o WHERE o.employee = :employee AND MONTH(o.submitDate) = MONTH(CURDATE()) GROUP BY MONTH(o.submitDate)")
     String getTotalReportCurrentMonth(@Param("employee") Employee employee);
+    
+    @Query(value="SELECT * FROM overtime o WHERE o.Department = :department ORDER BY Id DESC LIMIT 3", nativeQuery = true)
+    List<Overtime> getLatestDepartmentReport(@Param("department") Department department);
+    
+    List<Overtime> findByDepartmentOrderByReorder(@Param("department") Department department);
 }

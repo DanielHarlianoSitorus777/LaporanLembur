@@ -1,4 +1,4 @@
-<div th:fragment="navbaremployee">
+<div th:fragment="navbaremployee(activeHome, activePersonal)">
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
         <a class="navbar-brand" href="#">
             <img th:src="@{/images/KapitaApp-navbar.png}" height="55" />
@@ -16,14 +16,30 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/home}"
-                       >Home <span class="sr-only">(current)</span></a
-                    >
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/personal}">Riwayat</a>
-                </li>
+                <div th:if="${activeHome} == true">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/home}"
+                           >Home <span class="sr-only">(current)</span></a
+                        >
+                    </li>
+                </div>
+                <div th:unless="${activeHome} == true">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/home}"
+                           >Home <span class="sr-only">(current)</span></a
+                        >
+                    </li>
+                </div>
+                <div th:if="${activePersonal} == true">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/personal}">Personal Report</a>
+                    </li>
+                </div>
+                <div th:unless="${activePersonal} == true">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/personal}">Personal Report</a>
+                    </li>
+                </div>
             </ul>
             <a th:href="@{/logout}" class="text-danger">Logout</a>
         </div>

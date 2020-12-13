@@ -30,6 +30,7 @@
                                 <div th:text="${report.employee.name}" class="font-weight-bold"></div>
                             </div>
                             <input style="width: 100%" type="hidden" th:value="${report.employee.id}" name="employee">
+                            <input style="width: 100%" type="hidden" th:value="${report.reorder}" name="reorder">
                             <input style="width: 100%" type="hidden" th:value="${report.department.id}" name="department">
                             <input style="width: 100%" type="hidden" th:value="${report.totalTime}" name="totalTime">
                             <input style="width: 100%" type="hidden" th:value="${report.id}" name="id">
@@ -39,10 +40,10 @@
                             <input style="width: 100%" type="hidden" id="submitDate" th:value="${report.submitDate}" name="submitDate"> 
                         </div>
                         <div class="font-weight-bold">Department - <span th:text="${report.employee.department.department}" class="font-weight-bold"></span></div>
-                        <label for="deskripsi" class="mt-5">Deskripsi</label><br>
-                        <textarea id="deskripsi" rows="10" cols="30" style="width: 100%" th:field="*{description}" readonly></textarea>
-                        <label for="managerNotes" class="mt-5">Manager Notes</label><br>
-                        <textarea id="managerNotes" rows="10" cols="30" style="width: 100%" th:field="*{managerNotes}"></textarea>
+                        <label for="deskripsi" class="mt-3">Description</label><br>
+                        <textarea class="form-control" id="deskripsi" rows="10" cols="30" style="width: 100%" th:field="*{description}" readonly></textarea>
+                        <label for="managerNotes" class="mt-3">Manager Notes</label><br>
+                        <textarea class="form-control" id="managerNotes" rows="10" cols="30" style="width: 100%" th:field="*{managerNotes}"></textarea>
                         <div class="modal-footer">
                             <input class="btn btn-success btn-user btn-block" type="submit" id="submit" value="Submit">
                         </div>

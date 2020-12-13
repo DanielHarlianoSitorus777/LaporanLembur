@@ -44,6 +44,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Overtime.findTopByDepartmentAndOrderByIdDesc", query = "SELECT o FROM Overtime o WHERE o.department = :department ORDER BY o.id DESC")})
 public class Overtime implements Serializable {
 
+    @Basic(optional = false)
+    @Column(name = "reorder")
+    private int reorder;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -191,6 +195,14 @@ public class Overtime implements Serializable {
     @Override
     public String toString() {
         return "com.example.LaporanLembur.entities.Overtime[ id=" + id + " ]";
+    }
+
+    public int getReorder() {
+        return reorder;
+    }
+
+    public void setReorder(int reorder) {
+        this.reorder = reorder;
     }
     
 }

@@ -24,7 +24,7 @@ public interface EmployeeDao {
     public Overtime getLatestReport();
     public List<Overtime> getEmployeeLatestReport(Employee employee);
     public List<Overtime> getDepartmentLatestReport(Department department);
-    public void confirmReport(int id, String status);
+    public void confirmReport(int id, String status, int reorder);
     public void addNote(int id, String managerNotes);
     public List<String> getCurrentMonthTotalOvertime(Employee employee);
     public String getCurrentMonthTotalReport(Employee employee);

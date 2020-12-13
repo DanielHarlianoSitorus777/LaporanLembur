@@ -7,8 +7,20 @@ and open the template in the editor.
 <html>
     <head>
         <title>Kebijakan</title>
-        <link rel="stylesheet" type="text/css" th:href="@{/css/css_table.css}" />
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        
+        <link
+            th:href="@{https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap}"
+            rel="stylesheet"
+            />
+        <link th:href="@{https://unpkg.com/aos@2.3.1/dist/aos.css}" rel="stylesheet" />
+        <link
+            rel="stylesheet"
+            th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css}"
+            integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+            crossorigin="anonymous"
+            />
+        <!--<link rel="stylesheet" type="text/css" th:href="@{https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css}">-->
+        <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css}" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
         <!-- Custom fonts for this template -->
         <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
         <link
@@ -20,6 +32,7 @@ and open the template in the editor.
 
         <!-- Custom styles for this page -->
         <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/css_table.css}" />
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -45,8 +58,7 @@ and open the template in the editor.
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" th:href="@{/home}">
-                <img th:src="@{/images/calendar.png}" width="30" height="30" />
-                <b>KapitaApp</b>
+                <img th:src="@{/images/KapitaApp-navbar.png}" height="55" />
             </a>
             <button
                 class="navbar-toggler"
@@ -61,16 +73,16 @@ and open the template in the editor.
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item ">
                         <a class="nav-link" th:href="@{/home}"
                            >Home <span class="sr-only">(current)</span></a
                         >
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/employee}">Karyawan</a>
+                        <a class="nav-link" th:href="@{/employee}">Employee List</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/policy}">Kebijakan</a>
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/policy}">Policy</a>
                     </li>
                 </ul>
                 <a th:href="@{/logout}" class="text-danger">Logout</a>
@@ -79,23 +91,23 @@ and open the template in the editor.
         <!-- Navbar -->
 
         <div class="container p-5">
-            <ul class="nav nav-pills nav-fill mt-5 p-3">
+            <ul class="nav nav-pills nav-fill p-3" style="margin-top: 70px">
                 <li class="nav-item">
-                    <a href="#input" class="nav-link active" data-toggle="tab">Add New Policy</a>
+                    <a href="#input" class="nav-link " data-toggle="tab">Add New Policy</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#policy" class="nav-link" data-toggle="tab">All Policy</a>
+                    <a href="#policy" class="nav-link active" data-toggle="tab">All Policy</a>
                 </li>
             </ul>
             <div class="tab-content mt-5">
-                <div class="tab-pane fade show active" id="input">
+                <div class="tab-pane fade" id="input">
                     <center>
                         <div class="row">
                             <div class="container pt-4">
                                 <div class="col-7 shadow br-15 mt-3 p-3" style="background-color: white">
                                     <div>
                                         <div style='text-align: center'>
-                                            <font class='h2'> <strong> Kebijakan Lembur </strong> </font>
+                                            <font class='h2'> <strong> Overtime Policy </strong> </font>
                                         </div>
                                     </div>
                                     <hr>
@@ -121,7 +133,7 @@ and open the template in the editor.
                         </div>
                     </center>
                 </div>
-                <div class="tab-pane fade" id="policy">
+                <div class="tab-pane fade show active" id="policy">
                     <div class="table mt-3" border="1">
                         <div class="card shadow">
                             <div class="card-header py-3">
@@ -135,8 +147,7 @@ and open the template in the editor.
                                                 <th>ID</th>
                                                 <th>Description</th>
                                                 <th>Time</th>
-                                                <th></th>
-                                                <th></th>
+                                                <th class="text-center">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -145,10 +156,8 @@ and open the template in the editor.
                                                 <td th:text="${as.description}"></td>
                                                 <td th:text="${as.time} / 3600 + ' Jam'"></td>
                                                 <td class="text-center">
-                                                    <a th:href="@{/policy/} + ${as.id}"><img th:src="@{/images/edit.png}" height="24"></a>
-                                                </td>
-                                                <td class="text-center">
-                                                    <a th:href="@{/deletepolicy/} + ${as.id}"><img th:src="@{/images/delete.png}" height="24"></a>
+                                                    <a th:href="@{/policy/} + ${as.id}"><i class="fas fa-edit fa-2x text-primary mr-3"></i></a>
+                                                    <a th:href="@{/deletepolicy/} + ${as.id}"><i class="fas fa-trash-alt fa-2x text-danger"></i></a>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -183,7 +192,16 @@ and open the template in the editor.
         <script th:src="@{/js/custom.js}"></script>
         <script>
             $(document).ready(function () {
-                $('#tb').DataTable();
+                $(document).ready(function () {
+                $('#tb').DataTable({
+                    language: {
+                        search: "",
+                    },
+                    columnDefs: [
+                        {orderable: false, targets: 3}
+                    ]
+                });
+            });
             });
         </script>
     </body>

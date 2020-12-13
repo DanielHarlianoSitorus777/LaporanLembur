@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -76,8 +77,8 @@ public class maincontrollers {
         SimpleDateFormat overtimeFormat = new SimpleDateFormat("dd/MM/yyy hh:mm:ss");
         Date date = new Date();
 
-        System.out.println("Date Formating : " + formatter.format(date));
-        System.out.println("Time Formating : " + timeFormat.format(1606730000));
+//        System.out.println("Date Formating : " + formatter.format(date));
+//        System.out.println("Time Formating : " + timeFormat.format(1606730000));
         model.addAttribute("form", new Overtime());
         model.addAttribute("date", formatter.format(date));
         model.addAttribute("time", timeFormat.format(new Date().getTime()));
@@ -121,7 +122,7 @@ public class maincontrollers {
                 case "Manager":
                     if (employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(id)).size() > 0 && employeeDaoImpl.getDepartmentLatestReport(employeeRepository.getOne(id).getDepartment()).size() > 0) {
                         model.addAttribute("latestPersonalReport", employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(id)).get(0));
-                        model.addAttribute("departmentLatestReport", employeeDaoImpl.getDepartmentLatestReport(employeeRepository.getOne(id).getDepartment()).get(0));
+                        model.addAttribute("departmentLatestReport", overtimeRepository.getLatestDepartmentReport(employeeRepository.getOne(id).getDepartment()));
                     }
                     return view = "dashboardmanager";
                 case "Karyawan":
@@ -199,7 +200,7 @@ public class maincontrollers {
                 case "Manager":
                     if (employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(id)).size() > 0 && employeeDaoImpl.getDepartmentLatestReport(employeeRepository.getOne(id).getDepartment()).size() > 0) {
                         model.addAttribute("latestPersonalReport", employeeDaoImpl.getEmployeeLatestReport(employeeRepository.getOne(id)).get(0));
-                        model.addAttribute("departmentLatestReport", employeeDaoImpl.getDepartmentLatestReport(employeeRepository.getOne(id).getDepartment()).get(0));
+                        model.addAttribute("departmentLatestReport", overtimeRepository.getLatestDepartmentReport(employeeRepository.getOne(id).getDepartment()));
                     }
                     return view = "dashboardmanager";
                 case "Karyawan":
@@ -249,7 +250,7 @@ public class maincontrollers {
         CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int uid = user.getId();
         
-        model.addAttribute("history", employeeDaoImpl.getReportbyDepartment(departmentRepository.getOne(employeeRepository.getOne(uid).getDepartment().getId())));
+        model.addAttribute("history", overtimeRepository.findByDepartment(departmentRepository.getOne(employeeRepository.getOne(uid).getDepartment().getId())));
         System.out.println("Dept : " + employeeDaoImpl.getReportbyDepartment(departmentRepository.getOne(employeeRepository.getOne(uid).getDepartment().getId())));
 
         return "reportdivisi";
@@ -261,7 +262,7 @@ public class maincontrollers {
         CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int uid = user.getId();
         
-        model.addAttribute("history", employeeDaoImpl.getReportbyDepartment(departmentRepository.getOne(employeeRepository.getOne(uid).getDepartment().getId())));
+        model.addAttribute("history", overtimeRepository.findByDepartment(departmentRepository.getOne(employeeRepository.getOne(uid).getDepartment().getId())));
         model.addAttribute("report", overtimeRepository.getOne(id));
 
         SimpleDateFormat timeFormat = new SimpleDateFormat("dd/MM/yyy HH:mm:ss");
@@ -311,18 +312,28 @@ public class maincontrollers {
 
     // POST
     @PostMapping("/createreport")
-    public String createReport(Overtime overtime) throws MessagingException {
+    public String createReport(Overtime overtime, @RequestParam("tempStartTime") String tempStartTime, @RequestParam("tempEndTime") String tempEndTime) throws MessagingException, ParseException {
         CustomUser user = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int id = user.getId();
-
+        
+        SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String tempTime = overtime.getSubmitDate() + " " + tempStartTime + ":00";
+        String tempTimeEnd = overtime.getSubmitDate() + " " + tempEndTime + ":00";
+        Date date = timeFormat.parse(tempTime);
+        Date dateEnd = timeFormat.parse(tempTimeEnd);
+        
+        System.out.println("hasil : " + date);
+        overtime.setStartTime(date);
+        overtime.setEndTime(dateEnd);
+        overtime.setReorder(1);
         overtimeRepository.save(overtime);
         emailService.sendManagerNotif(employeeRepository.getOne(id).getManager().getEmail(), employeeRepository.getOne(id).getName());
         return "redirect:/home/?result=update_success";
     }
 
-    @GetMapping("/confirmReport/{id}/{status}")
-    public String confirmReport(@PathVariable("id") int id, @PathVariable("status") String status) {
-        overtimeRepository.confirmReport(id, status);
+    @GetMapping("/confirmReport/{id}/{status}/{reorder}")
+    public String confirmReport(@PathVariable("id") int id, @PathVariable("status") String status, @PathVariable("reorder") int reorder) throws MessagingException {
+        overtimeRepository.confirmReport(id, status, reorder);
         System.out.println("Overtime : " + overtimeRepository.getOne(id).getEmployee().getEmail());
         emailService.sendEmployeeConfirmationNotif(overtimeRepository.getOne(id).getEmployee().getEmail(), status);
         return "redirect:/department/?result=report_confirmed";

@@ -13,7 +13,11 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <div th:text="${report.submitDate}" class="font-weight-bold"></div>
+                            <div class="font-weight-bold">
+                                <th:block th:with="sdf = ${new java.text.SimpleDateFormat('yyyy-MM-dd')}">
+                                    <span th:text="${#dates.format(sdf.parse(report.submitDate), 'dd MMMM yyyy')}"></span>
+                                </th:block>
+                            </div>
                         </div>
                         <div class="col-md-6 text-right">
                             <div class="font-weight-bold">NIK - <span th:text="${report.employee.nik}" class="font-weight-bold"></span></div>
@@ -31,8 +35,8 @@
                         </div>
                     </div>
                     <div class="font-weight-bold">Department - <span th:text="${report.employee.department.department}" class="font-weight-bold"></span></div>
-                    <label for="deskripsi" class="mt-5">Deskripsi</label><br>
-                    <textarea id="deskripsi" rows="10" cols="30" style="width: 100%" th:text="${report.description}"></textarea>
+                    <label for="deskripsi" class="mt-5">Description</label><br>
+                    <textarea class="form-control" id="deskripsi" rows="10" cols="30" style="width: 100%" th:text="${report.description}"></textarea>
                 </div>
             </div>
         </div>

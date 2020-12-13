@@ -27,7 +27,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Autowired
     OvertimeRepository overtimeRepository;
-    
+
     @Autowired
     EmployeeRepository employeeRepository;
 
@@ -87,8 +87,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public void confirmReport(int id, String status) {
-        overtimeRepository.confirmReport(id, status);
+    public void confirmReport(int id, String status, int reorder) {
+        overtimeRepository.confirmReport(id, status, reorder);
     }
 
     @Override
